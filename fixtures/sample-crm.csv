@@ -1,0 +1,5 @@
+created_at,name,email,country_code,mobile_without_country_code,company,city,state,country,lead_owner,crm_status,crm_note,data_source,possession_time,description
+2026-05-13T14:20:48.000Z,John Doe,john.doe@example.com,+91,9876543210,Acme Realty,Bengaluru,Karnataka,India,Alice,GOOD_LEAD_FOLLOW_UP,Call back next week,leads_on_demand,Immediate,Hot lead from website
+2026-04-02T09:15:00.000Z,Sarah Johnson,sarah.j@example.com,+91,9123456780,Horizon Homes,Mumbai,Maharashtra,India,Bob,DID_NOT_CONNECT,No answer on two attempts,meridian_tower,Q3 2026,Interested in 2BHK
+2026-03-18T11:00:00.000Z,Rajesh Patel,rajesh.patel@example.com,+91,9988776655,Patel Enterprises,Ahmedabad,Gujarat,India,Carol,BAD_LEAD,Wrong number provided,eden_park,,Spam enquiry
+2026-02-28T16:45:30.000Z,Priya Singh,priya.singh@example.com,+91,9001122334,Singh Developers,Pune,Maharashtra,India,Dave,SALE_DONE,Booking confirmed,varah_swamy,Dec 2025,Closed 3BHK unit
