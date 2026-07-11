@@ -159,7 +159,7 @@ export function ImportFlow() {
         })}
       </nav>
 
-      <div className="flex gap-6">
+      <div className="flex min-h-0 flex-1 gap-6">
         {/* Vertical stepper sidebar */}
         <nav aria-label="Import steps" className="hidden w-32 shrink-0 flex-col sm:flex">
           {STEPS.map((s, i) => {
@@ -212,7 +212,7 @@ export function ImportFlow() {
         </nav>
 
         {/* Content area */}
-        <div className="min-w-0 flex-1 space-y-6">
+        <div className="min-w-0 flex-1 min-h-0 flex flex-col space-y-6">
           {step === "upload" && (
             <div className="space-y-4">
               <div>
