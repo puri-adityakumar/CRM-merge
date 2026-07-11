@@ -51,7 +51,11 @@ export function ImportFlow() {
     result,
     error: importError,
     progress,
+    batchLog,
+    startedAt,
+    estimatedMs,
     runImport,
+    cancel,
     reset: resetImport,
   } = useImport();
 
@@ -97,6 +101,12 @@ export function ImportFlow() {
       setImportFailed(true);
     }
   }, [file, runImport]);
+
+  const handleCancel = useCallback(() => {
+    cancel();
+    toast.info("Import cancelled");
+    resetAll();
+  }, [cancel, resetAll]);
 
   const current = stepIndex(step);
 
@@ -253,7 +263,15 @@ export function ImportFlow() {
             ) : (
               <ImportProgress
                 fileName={file?.name}
-                progress={progress}
+                percent={
+                  progress?.totalBatches
+                    ? Math.min(100, Math.round((progress.processed / progress.totalBatches) * 100))
+                    : null
+                }
+                batchLog={batchLog}
+                startedAt={startedAt}
+                estimatedMs={estimatedMs}
+                onCancel={handleCancel}
               />
             )}
           </CardContent>

@@ -2,7 +2,6 @@
 
 import type { CsvPreviewResult } from "@/lib/client/preview-parse";
 import {
-  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -48,7 +47,7 @@ export function PreviewTable({
       </div>
 
       <div className="max-h-[min(24rem,50vh)] overflow-auto rounded-lg border border-border">
-        <Table>
+        <table className="w-full caption-bottom text-sm">
           <TableHeader className="sticky top-0 z-10 bg-muted/95 backdrop-blur-sm">
             <TableRow>
               <TableHead className="w-12 text-muted-foreground">#</TableHead>
@@ -85,7 +84,7 @@ export function PreviewTable({
               ))
             )}
           </TableBody>
-        </Table>
+        </table>
       </div>
     </div>
   );

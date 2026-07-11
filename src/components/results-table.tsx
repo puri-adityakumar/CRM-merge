@@ -3,7 +3,6 @@
 import { CRM_FIELDS, type CrmRecord } from "@/lib/schema/crm";
 import type { SkippedRecord } from "@/lib/ai/post-process";
 import {
-  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -40,7 +39,7 @@ export function ResultsTable({ imported, skipped }: ResultsTableProps) {
           </p>
         ) : (
           <div className="max-h-[min(28rem,55vh)] overflow-auto rounded-lg border border-border">
-            <Table>
+            <table className="w-full caption-bottom text-sm">
               <TableHeader className="sticky top-0 z-10 bg-muted/95 backdrop-blur-sm">
                 <TableRow>
                   <TableHead className="w-12 text-muted-foreground">#</TableHead>
@@ -65,7 +64,7 @@ export function ResultsTable({ imported, skipped }: ResultsTableProps) {
                   </TableRow>
                 ))}
               </TableBody>
-            </Table>
+            </table>
           </div>
         )}
       </section>
@@ -81,7 +80,7 @@ export function ResultsTable({ imported, skipped }: ResultsTableProps) {
           </p>
         ) : (
           <div className="max-h-[min(20rem,40vh)] overflow-auto rounded-lg border border-border">
-            <Table>
+            <table className="w-full caption-bottom text-sm">
               <TableHeader className="sticky top-0 z-10 bg-muted/95 backdrop-blur-sm">
                 <TableRow>
                   <TableHead className="w-12">Row</TableHead>
@@ -108,7 +107,7 @@ export function ResultsTable({ imported, skipped }: ResultsTableProps) {
                   </TableRow>
                 ))}
               </TableBody>
-            </Table>
+            </table>
           </div>
         )}
       </section>

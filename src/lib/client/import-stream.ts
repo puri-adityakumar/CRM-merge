@@ -7,6 +7,7 @@ import type { ImportFailure, ImportResult, ImportSuccess } from "./import-api";
 export type ImportStreamOptions = {
   fetchImpl?: typeof fetch;
   endpoint?: string;
+  signal?: AbortSignal;
   /** Called for each server `progress` SSE event. */
   onProgress?: (p: BatchProgress) => void;
 };
@@ -71,8 +72,12 @@ export async function importCsvFileStream(
     response = await fetchImpl(endpoint, {
       method: "POST",
       body: form,
+      signal: options?.signal,
     });
   } catch (err) {
+    if (options?.signal?.aborted) {
+      return { ok: false, status: 0, error: "Import cancelled" };
+    }
     return {
       ok: false,
       status: 0,
@@ -120,6 +125,9 @@ export async function importCsvFileStream(
 
   try {
     while (true) {
+      if (options?.signal?.aborted) {
+        return { ok: false, status: 0, error: "Import cancelled" };
+      }
       const { done, value } = await reader.read();
       if (done) break;
       buffer += decoder.decode(value, { stream: true });

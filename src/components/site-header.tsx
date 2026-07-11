@@ -15,15 +15,15 @@ export function SiteHeader() {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 32 32"
             fill="none"
-            className="size-8 shrink-0 rounded-lg bg-foreground text-background"
+            className="size-8 shrink-0 rounded-lg"
             aria-hidden
           >
-            <rect width="32" height="32" rx="8" fill="currentColor" />
-            <path d="M9 18.5c0-2.5 2-4.5 4.5-4.5h1.5v-1C15 10.7 16.7 9 19 9s4 1.7 4 4v.5H24.5c2.5 0 4.5 2 4.5 4.5s-2 4.5-4.5 4.5H13.5c-2.5 0-4.5-2-4.5-4.5Z" fill="currentColor" opacity="0.95" />
-            <path d="M12.5 13.5v4.5a2.5 2.5 0 0 0 2.5 2.5h7.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-            <path d="M12.5 18.5h9" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-            <circle cx="16" cy="13" r="1.25" fill="currentColor" />
-            <circle cx="18.5" cy="13" r="1.25" fill="currentColor" />
+            <rect width="32" height="32" rx="8" className="fill-primary" />
+            <path d="M9 18.5c0-2.5 2-4.5 4.5-4.5h1.5v-1C15 10.7 16.7 9 19 9s4 1.7 4 4v.5H24.5c2.5 0 4.5 2 4.5 4.5s-2 4.5-4.5 4.5H13.5c-2.5 0-4.5-2-4.5-4.5Z" className="fill-primary-foreground" opacity="0.95" />
+            <path d="M12.5 13.5v4.5a2.5 2.5 0 0 0 2.5 2.5h7.5" className="stroke-primary-foreground" strokeWidth="1.25" strokeLinecap="round" />
+            <path d="M12.5 18.5h9" className="stroke-primary-foreground" strokeWidth="1.25" strokeLinecap="round" />
+            <circle cx="16" cy="13" r="1.25" className="fill-primary-foreground" />
+            <circle cx="18.5" cy="13" r="1.25" className="fill-primary-foreground" />
           </svg>
           <div className="leading-tight">
             <p className="text-sm font-semibold tracking-tight">CRMerge</p>
