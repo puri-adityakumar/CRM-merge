@@ -1,22 +1,7 @@
 # CRMerge
 
-AI-powered CSV → GrowEasy CRM importer for the [GrowEasy](https://groweasy.ai) SDE assignment.
-
 Upload any valid CSV (Facebook leads, Google Ads, messy real-estate exports, etc.), preview rows client-side, then confirm to map fields into the fixed 15-field GrowEasy CRM schema using an LLM (OpenRouter).
 
-**Position applied for:** Full-Time
-
----
-
-## Features
-
-- **Upload** — drag & drop or file picker (`.csv` only, max 5 MiB)
-- **Preview** — client-side Papa Parse; no AI until you confirm
-- **Import** — multipart upload → server parse → batched LLM extraction → post-process
-- **SSE progress** — live batch progress via `POST /api/import/stream`
-- **Hard rules in code** — enum clamp, skip without contact, multi email/phone → `crm_note`, date normalize
-- **Stateless** — no database, no auth
-- **Dark mode**
 
 ---
 
@@ -26,17 +11,8 @@ Upload any valid CSV (Facebook leads, Google Ads, messy real-estate exports, etc
 |-------|--------|
 | App | Next.js (App Router) + TypeScript + Tailwind + shadcn/ui |
 | API | Next.js Route Handlers (Node runtime) |
-| AI | OpenRouter free models (OpenAI-compatible chat completions) |
+| AI | OpenRouter chat completions (multi-model chain with fallback) |
 | CSV | Papa Parse (client preview + server parse) |
-| Deploy target | Vercel |
-
-### Express deviation (assignment note)
-
-The PDF lists **Node.js + Express** for the backend. This project uses **Next.js Route Handlers** on the same Node runtime so the app is a single deployable unit on Vercel.
-
-- Pipeline is still: accept CSV → parse → batch AI → structured JSON  
-- Orchestration lives in framework-agnostic modules under `src/lib/` (`runImport`, `extractLeads`, `postProcess`) so an Express adapter could wrap the same functions later  
-- See [`docs/DECISIONS.md`](./docs/DECISIONS.md) (D2a)
 
 ---
 
@@ -80,6 +56,7 @@ Copy [`.env.example`](./.env.example):
 | `LLM_FALLBACK_MODELS` | No | Comma-separated fallback model ids |
 | `BATCH_SIZE` | No | Rows per LLM batch (default `25`) |
 | `MAX_RETRIES` | No | Retries per model on 429/5xx (default `2`) |
+| `BATCH_INTERVAL_MS` | No | Cooldown between batches (default `3000`) |
 | `MAX_UPLOAD_BYTES` | No | Max upload size (default 5 MiB) |
 
 ---
@@ -137,7 +114,7 @@ The UI uses the stream endpoint for confirm → results.
 
 ## Demo fixtures
 
-Under [`fixtures/`](./fixtures/):
+Under [`docs/samples/`](./docs/samples/):
 
 | File | Description |
 |------|-------------|
@@ -151,7 +128,7 @@ Example:
 
 ```bash
 curl -sS -X POST http://localhost:3000/api/import \
-  -F "file=@fixtures/sample-crm.csv;type=text/csv" | jq .
+  -F "file=@docs/samples/sample-crm.csv;type=text/csv" | jq .
 ```
 
 ---
@@ -182,6 +159,8 @@ Key modules:
 
 Docs: [`docs/SPEC.md`](./docs/SPEC.md) (PRD extract), [`docs/PLAN.md`](./docs/PLAN.md), [`docs/DECISIONS.md`](./docs/DECISIONS.md).
 
+Samples: [`docs/samples/`](./docs/samples/) — 5 CSV fixtures for testing.
+
 ---
 
 ## CRM fields (15)
@@ -192,16 +171,3 @@ Docs: [`docs/SPEC.md`](./docs/SPEC.md) (PRD extract), [`docs/PLAN.md`](./docs/PL
 **Source enum:** `leads_on_demand` | `meridian_tower` | `eden_park` | `varah_swamy` | `sarjapur_plots`
 
 ---
-
-## Deploy (Vercel)
-
-1. Push this repo to public GitHub  
-2. Import the project in [Vercel](https://vercel.com) (root directory: `CRMerge` if monorepo)  
-3. Set env vars: `OPENROUTER_API_KEY`, `LLM_MODEL`, optional fallbacks / batch size  
-4. Deploy and smoke-test with `fixtures/sample-crm.csv`
-
----
-
-## License
-
-Assignment submission — not for production use without review.
