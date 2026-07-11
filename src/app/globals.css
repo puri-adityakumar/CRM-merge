@@ -74,38 +74,38 @@
 }
 
 :root {
-  --background: oklch(0.9900 0 0);
+  --background: oklch(0.9900 0.004 155);
   --foreground: oklch(0 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0 0 0);
-  --popover: oklch(0.9900 0 0);
+  --popover: oklch(0.9900 0.004 155);
   --popover-foreground: oklch(0 0 0);
-  --primary: oklch(0 0 0);
+  --primary: oklch(0.48 0.12 155);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.9400 0 0);
+  --secondary: oklch(0.9400 0.01 155);
   --secondary-foreground: oklch(0 0 0);
-  --muted: oklch(0.9700 0 0);
-  --muted-foreground: oklch(0.4400 0 0);
-  --accent: oklch(0.9400 0 0);
+  --muted: oklch(0.9700 0.006 155);
+  --muted-foreground: oklch(0.4400 0.01 155);
+  --accent: oklch(0.9400 0.01 155);
   --accent-foreground: oklch(0 0 0);
   --destructive: oklch(0.6300 0.1900 23.0300);
-  --border: oklch(0.9200 0 0);
-  --input: oklch(0.9400 0 0);
-  --ring: oklch(0 0 0);
-  --chart-1: oklch(0.8100 0.1700 75.3500);
+  --border: oklch(0.9200 0.004 155);
+  --input: oklch(0.9400 0.004 155);
+  --ring: oklch(0.48 0.12 155);
+  --chart-1: oklch(0.6500 0.15 155);
   --chart-2: oklch(0.5500 0.2200 264.5300);
-  --chart-3: oklch(0.7200 0 0);
-  --chart-4: oklch(0.9200 0 0);
+  --chart-3: oklch(0.7200 0.02 155);
+  --chart-4: oklch(0.9200 0.01 155);
   --chart-5: oklch(0.5600 0 0);
   --radius: 0.5rem;
-  --sidebar: oklch(0.9900 0 0);
+  --sidebar: oklch(0.9900 0.004 155);
   --sidebar-foreground: oklch(0 0 0);
-  --sidebar-primary: oklch(0 0 0);
+  --sidebar-primary: oklch(0.48 0.12 155);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.9400 0 0);
+  --sidebar-accent: oklch(0.9400 0.01 155);
   --sidebar-accent-foreground: oklch(0 0 0);
-  --sidebar-border: oklch(0.9400 0 0);
-  --sidebar-ring: oklch(0 0 0);
+  --sidebar-border: oklch(0.9400 0.004 155);
+  --sidebar-ring: oklch(0.48 0.12 155);
   --destructive-foreground: oklch(1 0 0);
   --font-sans: Geist, sans-serif;
   --font-serif: Georgia, serif;
@@ -130,37 +130,37 @@
 }
 
 .dark {
-  --background: oklch(0 0 0);
+  --background: oklch(0.12 0.010 155);
   --foreground: oklch(1 0 0);
-  --card: oklch(0.1400 0 0);
+  --card: oklch(0.1400 0.010 155);
   --card-foreground: oklch(1 0 0);
-  --popover: oklch(0.1800 0 0);
+  --popover: oklch(0.1800 0.010 155);
   --popover-foreground: oklch(1 0 0);
-  --primary: oklch(1 0 0);
-  --primary-foreground: oklch(0 0 0);
-  --secondary: oklch(0.2500 0 0);
+  --primary: oklch(0.72 0.16 155);
+  --primary-foreground: oklch(0.12 0.010 155);
+  --secondary: oklch(0.2500 0.012 155);
   --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.2300 0 0);
-  --muted-foreground: oklch(0.7200 0 0);
-  --accent: oklch(0.3200 0 0);
+  --muted: oklch(0.2300 0.012 155);
+  --muted-foreground: oklch(0.7200 0.02 155);
+  --accent: oklch(0.3200 0.012 155);
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.6900 0.2000 23.9100);
-  --border: oklch(0.2600 0 0);
-  --input: oklch(0.3200 0 0);
-  --ring: oklch(0.7200 0 0);
-  --chart-1: oklch(0.8100 0.1700 75.3500);
+  --border: oklch(0.2600 0.012 155);
+  --input: oklch(0.3200 0.012 155);
+  --ring: oklch(0.72 0.16 155);
+  --chart-1: oklch(0.7500 0.16 155);
   --chart-2: oklch(0.5800 0.2100 260.8400);
-  --chart-3: oklch(0.5600 0 0);
+  --chart-3: oklch(0.5600 0.02 155);
   --chart-4: oklch(0.4400 0 0);
-  --chart-5: oklch(0.9200 0 0);
-  --sidebar: oklch(0.1800 0 0);
+  --chart-5: oklch(0.9200 0.01 155);
+  --sidebar: oklch(0.1800 0.010 155);
   --sidebar-foreground: oklch(1 0 0);
-  --sidebar-primary: oklch(1 0 0);
-  --sidebar-primary-foreground: oklch(0 0 0);
-  --sidebar-accent: oklch(0.3200 0 0);
+  --sidebar-primary: oklch(0.72 0.16 155);
+  --sidebar-primary-foreground: oklch(0.12 0.010 155);
+  --sidebar-accent: oklch(0.3200 0.012 155);
   --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(0.3200 0 0);
-  --sidebar-ring: oklch(0.7200 0 0);
+  --sidebar-border: oklch(0.3200 0.012 155);
+  --sidebar-ring: oklch(0.72 0.16 155);
   --destructive-foreground: oklch(0 0 0);
   --radius: 0.5rem;
   --font-sans: Geist, sans-serif;
@@ -194,5 +194,21 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+@utility animate-shimmer {
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-shimmer {
+    animation: none;
+    opacity: 0.3;
   }
 }

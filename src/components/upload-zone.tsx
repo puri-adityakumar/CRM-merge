@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { useDropzone, type FileRejection } from "react-dropzone";
-import { FileSpreadsheetIcon, UploadIcon } from "lucide-react";
+import { FileSpreadsheetIcon, Loader2Icon, UploadIcon } from "lucide-react";
 import { toast } from "sonner";
 import {
   CLIENT_MAX_UPLOAD_BYTES,
@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 export type UploadZoneProps = {
   onFileAccepted: (file: File) => void;
   disabled?: boolean;
+  parsing?: boolean;
 };
 
 function formatBytes(bytes: number): string {
@@ -21,7 +22,11 @@ function formatBytes(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-export function UploadZone({ onFileAccepted, disabled }: UploadZoneProps) {
+export function UploadZone({
+  onFileAccepted,
+  disabled,
+  parsing = false,
+}: UploadZoneProps) {
   const onDrop = useCallback(
     (accepted: File[], rejected: FileRejection[]) => {
       if (rejected.length > 0) {
@@ -55,7 +60,7 @@ export function UploadZone({ onFileAccepted, disabled }: UploadZoneProps) {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    disabled,
+    disabled: disabled || parsing,
     multiple: false,
     accept: {
       "text/csv": [".csv"],
@@ -70,14 +75,16 @@ export function UploadZone({ onFileAccepted, disabled }: UploadZoneProps) {
       data-testid="upload-zone"
       className={cn(
         "flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border bg-muted/30 px-6 py-14 text-center transition-colors",
-        "hover:border-foreground/30 hover:bg-muted/50",
+        "hover:border-foreground/30 hover:bg-muted/50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
         isDragActive && "border-primary bg-primary/5",
-        disabled && "pointer-events-none opacity-50",
+        (disabled || parsing) && "pointer-events-none opacity-50",
       )}
     >
       <input {...getInputProps()} aria-label="Upload CSV file" />
       <div className="flex size-12 items-center justify-center rounded-full bg-background ring-1 ring-border">
-        {isDragActive ? (
+        {parsing ? (
+          <Loader2Icon className="size-5 animate-spin text-primary" />
+        ) : isDragActive ? (
           <FileSpreadsheetIcon className="size-5 text-primary" />
         ) : (
           <UploadIcon className="size-5 text-muted-foreground" />
@@ -85,11 +92,16 @@ export function UploadZone({ onFileAccepted, disabled }: UploadZoneProps) {
       </div>
       <div className="space-y-1">
         <p className="text-sm font-medium">
-          {isDragActive ? "Drop your CSV here" : "Drag & drop a CSV file"}
+          {parsing
+            ? "Parsing CSV…"
+            : isDragActive
+              ? "Drop your CSV here"
+              : "Drag & drop a CSV file"}
         </p>
         <p className="text-xs text-muted-foreground">
-          or click to browse · .csv only · max{" "}
-          {formatBytes(CLIENT_MAX_UPLOAD_BYTES)}
+          {parsing
+            ? "Reading and analyzing file structure"
+            : `or click to browse · .csv only · max ${formatBytes(CLIENT_MAX_UPLOAD_BYTES)}`}
         </p>
       </div>
     </div>

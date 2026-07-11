@@ -78,7 +78,7 @@ export function PreviewTable({
                   </TableCell>
                   {preview.headers.map((h) => (
                     <TableCell key={h || `col-${h}`} title={row[h] ?? ""}>
-                      {row[h] ?? ""}
+                      {row[h] || <span className="text-muted-foreground">—</span>}
                     </TableCell>
                   ))}
                 </TableRow>

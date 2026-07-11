@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
+  AlertCircleIcon,
   ArrowLeftIcon,
   CheckCircle2Icon,
   Loader2Icon,
@@ -43,7 +44,8 @@ function stepIndex(step: FlowStep): number {
 export function ImportFlow() {
   const [step, setStep] = useState<FlowStep>("upload");
   const [file, setFile] = useState<File | null>(null);
-  const { preview, parseFile, reset: resetParse } = useParseCsv();
+  const [importFailed, setImportFailed] = useState<boolean>(false);
+  const { preview, parsing, parseFile, reset: resetParse } = useParseCsv();
   const {
     importing,
     result,
@@ -56,6 +58,7 @@ export function ImportFlow() {
   const resetAll = useCallback(() => {
     setStep("upload");
     setFile(null);
+    setImportFailed(false);
     resetParse();
     resetImport();
   }, [resetParse, resetImport]);
@@ -63,6 +66,7 @@ export function ImportFlow() {
   const handleFileAccepted = useCallback(
     async (accepted: File) => {
       setFile(accepted);
+      setImportFailed(false);
       const parsed = await parseFile(accepted);
       if (!parsed) {
         toast.error("Could not parse CSV for preview.");
@@ -80,6 +84,7 @@ export function ImportFlow() {
       toast.error("No file selected.");
       return;
     }
+    setImportFailed(false);
     setStep("processing");
     const outcome = await runImport(file);
     if (outcome.ok) {
@@ -89,12 +94,24 @@ export function ImportFlow() {
       setStep("results");
     } else {
       toast.error(outcome.error || "Import failed");
-      // Stay on processing with error UI; allow retry / back
-      setStep("results");
+      setImportFailed(true);
     }
   }, [file, runImport]);
 
   const current = stepIndex(step);
+
+  // Enter key confirms import from preview step
+  useEffect(() => {
+    if (step !== "preview" || importing) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Enter" && !e.repeat) {
+        e.preventDefault();
+        handleConfirm();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [step, importing, handleConfirm]);
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6">
@@ -134,7 +151,10 @@ export function ImportFlow() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <UploadZone onFileAccepted={handleFileAccepted} />
+            <UploadZone
+              onFileAccepted={handleFileAccepted}
+              parsing={parsing}
+            />
           </CardContent>
         </Card>
       )}
@@ -171,99 +191,100 @@ export function ImportFlow() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Loader2Icon className="size-4 animate-spin" />
-              Processing import
+              {importFailed ? (
+                <>
+                  <AlertCircleIcon className="size-4 text-destructive" />
+                  Import failed
+                </>
+              ) : (
+                <>
+                  <Loader2Icon className="size-4 animate-spin" />
+                  Processing import
+                </>
+              )}
             </CardTitle>
             <CardDescription>
-              Streaming AI extraction progress from the server. This may take a
-              moment for larger files or free-tier models.
+              {importFailed
+                ? "The import request could not be completed. You can retry or choose another file."
+                : "Streaming AI extraction progress from the server. This may take a moment for larger files or free-tier models."}
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <ImportProgress
-              fileName={file?.name}
-              progress={progress}
-            />
-          </CardContent>
-        </Card>
-      )}
-
-      {step === "results" && (
-        <div className="space-y-4">
-          {result?.ok ? (
-            <>
-              <Card>
-                <CardHeader className="flex-row items-start justify-between gap-4">
-                  <div className="space-y-1">
-                    <CardTitle className="flex items-center gap-2">
-                      <CheckCircle2Icon className="size-4 text-emerald-600 dark:text-emerald-400" />
-                      Import complete
-                    </CardTitle>
-                    <CardDescription>
-                      AI-mapped CRM records from your CSV.
-                    </CardDescription>
-                  </div>
-                  <Button type="button" variant="outline" onClick={resetAll}>
-                    <RotateCcwIcon />
-                    Import another
-                  </Button>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <StatsCards stats={result.stats} />
-                  <ResultsTable
-                    imported={result.imported}
-                    skipped={result.skipped}
-                  />
-                </CardContent>
-              </Card>
-            </>
-          ) : (
-            <Card>
-              <CardHeader>
-                <CardTitle>Import failed</CardTitle>
-                <CardDescription>
-                  {importError?.error ??
-                    "The import request failed. You can retry or choose another file."}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                {importError?.status ? (
-                  <p>
+          <CardContent className="space-y-4">
+            {importFailed ? (
+              <div className="space-y-3">
+                {importError?.status && (
+                  <p className="text-sm">
                     <span className="text-muted-foreground">Status:</span>{" "}
                     <span className="font-mono tabular-nums">
                       {importError.status}
                     </span>
                   </p>
-                ) : null}
-                {importError?.code ? (
-                  <p>
+                )}
+                {importError?.code && (
+                  <p className="text-sm">
                     <span className="text-muted-foreground">Code:</span>{" "}
                     <span className="font-mono">{importError.code}</span>
                   </p>
-                ) : null}
-              </CardContent>
-              <CardFooter className="gap-2">
-                <Button type="button" variant="outline" onClick={resetAll}>
-                  Start over
-                </Button>
-                <Button
-                  type="button"
-                  onClick={handleConfirm}
-                  disabled={!file || importing}
-                >
-                  {importing ? (
-                    <>
-                      <Loader2Icon className="animate-spin" />
-                      Retrying…
-                    </>
-                  ) : (
-                    "Retry import"
-                  )}
-                </Button>
-              </CardFooter>
-            </Card>
-          )}
-        </div>
+                )}
+                <div className="flex gap-2 pt-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={resetAll}
+                  >
+                    Start over
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleConfirm}
+                    disabled={!file || importing}
+                  >
+                    {importing ? (
+                      <>
+                        <Loader2Icon className="animate-spin" />
+                        Retrying…
+                      </>
+                    ) : (
+                      "Retry import"
+                    )}
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <ImportProgress
+                fileName={file?.name}
+                progress={progress}
+              />
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {step === "results" && result?.ok && (
+        <Card>
+          <CardHeader className="flex-row items-start justify-between gap-4">
+            <div className="space-y-1">
+              <CardTitle className="flex items-center gap-2">
+                <CheckCircle2Icon className="size-4 text-primary" />
+                Import complete
+              </CardTitle>
+              <CardDescription>
+                AI-mapped CRM records from your CSV.
+              </CardDescription>
+            </div>
+            <Button type="button" variant="outline" onClick={resetAll}>
+              <RotateCcwIcon />
+              Import another
+            </Button>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <StatsCards stats={result.stats} />
+            <ResultsTable
+              imported={result.imported}
+              skipped={result.skipped}
+            />
+          </CardContent>
+        </Card>
       )}
     </div>
   );

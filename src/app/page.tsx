@@ -8,8 +8,8 @@ export default function Home() {
       <main className="flex-1">
         <ImportFlow />
       </main>
-      <footer className="border-t border-border py-4 text-center text-xs text-muted-foreground">
-        CRMerge · GrowEasy CSV importer · AI mapping runs only after you confirm
+      <footer className="border-t border-border py-3 text-center text-xs text-muted-foreground">
+        CRMerge — AI CSV Importer
       </footer>
     </div>
   );
