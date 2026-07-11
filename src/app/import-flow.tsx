@@ -14,14 +14,6 @@ import { PreviewTable } from "@/components/preview-table";
 import { ResultsTable } from "@/components/results-table";
 import { StatsCards } from "@/components/stats-cards";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { ImportProgress } from "@/components/import-progress";
 import { useParseCsv } from "@/hooks/use-parse-csv";
 import { useImport } from "@/hooks/use-import";
@@ -220,58 +212,56 @@ export function ImportFlow() {
         </nav>
 
         {/* Content area */}
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 space-y-6">
           {step === "upload" && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Upload CSV</CardTitle>
-                <CardDescription>
+            <div className="space-y-4">
+              <div>
+                <h2 className="text-lg font-semibold">Upload CSV</h2>
+                <p className="text-sm text-muted-foreground">
                   Upload any valid CSV, preview the rows, then confirm to map
                   fields into structured output with AI. No processing runs
                   until you confirm.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <UploadZone
-                  onFileAccepted={handleFileAccepted}
-                  parsing={parsing}
-                />
-              </CardContent>
-            </Card>
+                </p>
+              </div>
+              <UploadZone
+                onFileAccepted={handleFileAccepted}
+                parsing={parsing}
+              />
+            </div>
           )}
 
           {step === "preview" && preview && file && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Preview</CardTitle>
-                <CardDescription>
-                  Review parsed rows. Confirm import only when you are ready —
-                  that sends the file to the server for AI extraction.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <PreviewTable preview={preview} fileName={file.name} />
-              </CardContent>
-              <CardFooter className="justify-between gap-2">
-                <Button type="button" variant="outline" onClick={resetAll}>
-                  <ArrowLeftIcon />
-                  Choose another file
-                </Button>
-                <Button
-                  type="button"
-                  onClick={handleConfirm}
-                  disabled={importing || preview.rowCount === 0}
-                >
-                  Confirm import
-                </Button>
-              </CardFooter>
-            </Card>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-lg font-semibold">Preview</h2>
+                  <p className="text-sm text-muted-foreground">
+                    Review parsed rows. Confirm import only when you are ready,
+                    that sends the file to the server for AI extraction.
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <Button type="button" variant="outline" onClick={resetAll}>
+                    <ArrowLeftIcon />
+                    Choose another file
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleConfirm}
+                    disabled={importing || preview.rowCount === 0}
+                  >
+                    Confirm import
+                  </Button>
+                </div>
+              </div>
+              <PreviewTable preview={preview} fileName={file.name} />
+            </div>
           )}
 
           {step === "processing" && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+            <div className="space-y-4">
+              <div>
+                <h2 className="flex items-center gap-2 text-lg font-semibold">
                   {importFailed ? (
                     <>
                       <AlertCircleIcon className="size-4 text-destructive" />
@@ -283,97 +273,89 @@ export function ImportFlow() {
                       Processing import
                     </>
                   )}
-                </CardTitle>
-                <CardDescription>
+                </h2>
+                <p className="text-sm text-muted-foreground">
                   {importFailed
                     ? "The import request could not be completed. You can retry or choose another file."
                     : "Streaming AI extraction from the server. This may take a moment for larger files."}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {importFailed ? (
-                  <div className="space-y-3">
-                    {importError?.status && (
-                      <p className="text-sm">
-                        <span className="text-muted-foreground">Status:</span>{" "}
-                        <span className="font-mono tabular-nums">
-                          {importError.status}
-                        </span>
-                      </p>
-                    )}
-                    {importError?.code && (
-                      <p className="text-sm">
-                        <span className="text-muted-foreground">Code:</span>{" "}
-                        <span className="font-mono">{importError.code}</span>
-                      </p>
-                    )}
-                    <div className="flex gap-2 pt-2">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={resetAll}
-                      >
-                        Start over
-                      </Button>
-                      <Button
-                        type="button"
-                        onClick={handleConfirm}
-                        disabled={!file || importing}
-                      >
-                        {importing ? (
-                          <>
-                            <Loader2Icon className="animate-spin" />
-                            Retrying…
-                          </>
-                        ) : (
-                          "Retry import"
-                        )}
-                      </Button>
-                    </div>
+                </p>
+              </div>
+              {importFailed ? (
+                <div className="space-y-3">
+                  {importError?.status && (
+                    <p className="text-sm">
+                      <span className="text-muted-foreground">Status:</span>{" "}
+                      <span className="font-mono tabular-nums">
+                        {importError.status}
+                      </span>
+                    </p>
+                  )}
+                  {importError?.code && (
+                    <p className="text-sm">
+                      <span className="text-muted-foreground">Code:</span>{" "}
+                      <span className="font-mono">{importError.code}</span>
+                    </p>
+                  )}
+                  <div className="flex gap-2">
+                    <Button type="button" variant="outline" onClick={resetAll}>
+                      Start over
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={handleConfirm}
+                      disabled={!file || importing}
+                    >
+                      {importing ? (
+                        <>
+                          <Loader2Icon className="animate-spin" />
+                          Retrying
+                        </>
+                      ) : (
+                        "Retry import"
+                      )}
+                    </Button>
                   </div>
-                ) : (
-                  <ImportProgress
-                    fileName={file?.name}
-                    percent={
-                      progress?.totalBatches
-                        ? Math.min(100, Math.round((progress.processed / progress.totalBatches) * 100))
-                        : null
-                    }
-                    batchLog={batchLog}
-                    startedAt={startedAt}
-                    estimatedMs={estimatedMs}
-                    onCancel={handleCancel}
-                  />
-                )}
-              </CardContent>
-            </Card>
+                </div>
+              ) : (
+                <ImportProgress
+                  fileName={file?.name}
+                  percent={
+                    progress?.totalBatches
+                      ? Math.min(100, Math.round((progress.processed / progress.totalBatches) * 100))
+                      : null
+                  }
+                  batchLog={batchLog}
+                  startedAt={startedAt}
+                  estimatedMs={estimatedMs}
+                  onCancel={handleCancel}
+                />
+              )}
+            </div>
           )}
 
           {step === "results" && result?.ok && (
-            <Card>
-              <CardHeader className="space-y-2">
-                <div className="flex items-center justify-between gap-4">
-                  <CardTitle className="flex items-center gap-2">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h2 className="flex items-center gap-2 text-lg font-semibold">
                     <CheckCircle2Icon className="size-4 text-primary" />
                     Import complete
-                  </CardTitle>
-                  <Button type="button" variant="outline" onClick={resetAll}>
-                    <RotateCcwIcon />
-                    Import another
-                  </Button>
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    AI-mapped records from your CSV.
+                  </p>
                 </div>
-                <CardDescription>
-                  AI-mapped CRM records from your CSV.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <StatsCards stats={result.stats} />
-                <ResultsTable
-                  imported={result.imported}
-                  skipped={result.skipped}
-                />
-              </CardContent>
-            </Card>
+                <Button type="button" variant="outline" onClick={resetAll}>
+                  <RotateCcwIcon />
+                  Import another
+                </Button>
+              </div>
+              <StatsCards stats={result.stats} />
+              <ResultsTable
+                imported={result.imported}
+                skipped={result.skipped}
+              />
+            </div>
           )}
         </div>
       </div>

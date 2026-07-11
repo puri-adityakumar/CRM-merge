@@ -13,16 +13,14 @@ export function SiteHeader() {
         <div className="flex items-center gap-2.5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 28 28"
+            viewBox="0 0 24 24"
             fill="none"
-            className="size-7 shrink-0"
+            className="size-6 shrink-0"
             aria-hidden
           >
-            <rect width="28" height="28" rx="7" className="fill-primary" />
-            <path d="M9 7h5l3.5 3.5V20a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z" className="fill-primary/20 stroke-primary-foreground" strokeWidth="1" />
-            <path d="M14 7v3.5h3.5" className="stroke-primary-foreground" strokeWidth="1" />
-            <path d="M10 13h5M10 16h4" className="stroke-primary-foreground" strokeWidth="1" strokeLinecap="round" />
-            <path d="M16 4.5 17.5 6l1.5-1.5L17.5 3Z" className="fill-primary-foreground" />
+            <path d="M7 5h5l3 3v10a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" className="fill-primary/20 stroke-primary" strokeWidth="1.25" />
+            <path d="M12 5v3h3" className="stroke-primary" strokeWidth="1.25" />
+            <path d="M9 11h4M9 14h3" className="stroke-primary" strokeWidth="1.25" strokeLinecap="round" />
           </svg>
           <div className="leading-tight">
             <p className="text-sm font-semibold tracking-tight">CRMerge</p>
