@@ -38,7 +38,7 @@ export function ResultsTable({ imported, skipped }: ResultsTableProps) {
             No records were imported.
           </p>
         ) : (
-          <div className="max-h-[min(28rem,55vh)] overflow-auto rounded-lg border border-border">
+          <div className="overflow-auto rounded-lg border border-border">
             <table className="w-full caption-bottom text-sm">
               <TableHeader className="sticky top-0 z-10 bg-muted/95 backdrop-blur-sm">
                 <TableRow>
@@ -79,7 +79,7 @@ export function ResultsTable({ imported, skipped }: ResultsTableProps) {
             No records were skipped.
           </p>
         ) : (
-          <div className="max-h-[min(20rem,40vh)] overflow-auto rounded-lg border border-border">
+          <div className="overflow-auto rounded-lg border border-border">
             <table className="w-full caption-bottom text-sm">
               <TableHeader className="sticky top-0 z-10 bg-muted/95 backdrop-blur-sm">
                 <TableRow>

@@ -46,7 +46,7 @@ export function PreviewTable({
         ) : null}
       </div>
 
-      <div className="max-h-[min(24rem,50vh)] overflow-auto rounded-lg border border-border">
+      <div className="overflow-auto rounded-lg border border-border">
         <table className="w-full caption-bottom text-sm">
           <TableHeader className="sticky top-0 z-10 bg-muted/95 backdrop-blur-sm">
             <TableRow>
