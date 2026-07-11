@@ -169,3 +169,7 @@ The `postProcess` step applies hard business rules the LLM may violate:
 **Status enum:** `GOOD_LEAD_FOLLOW_UP` | `DID_NOT_CONNECT` | `BAD_LEAD` | `SALE_DONE`  
 **Source enum:** `leads_on_demand` | `meridian_tower` | `eden_park` | `varah_swamy` | `sarjapur_plots`
 
+## License
+
+MIT — see [LICENSE](./LICENSE) for details.
+
