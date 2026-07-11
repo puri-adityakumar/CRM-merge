@@ -1,6 +1,6 @@
 # CRMerge
 
-Upload any valid CSV (Facebook leads, Google Ads, messy real-estate exports, etc.), preview rows client-side, then confirm to map fields into the fixed 15-field GrowEasy CRM schema using an LLM (OpenRouter).
+Upload any valid CSV (Facebook leads, Google Ads, messy real-estate exports, etc.), preview rows client-side, then confirm to transform them into clean, structured output using AI (OpenRouter).
 
 
 ---
@@ -118,7 +118,7 @@ Under [`docs/samples/`](./docs/samples/):
 
 | File | Description |
 |------|-------------|
-| `sample-crm.csv` | Clean GrowEasy-shaped rows |
+| `sample-crm.csv` | Structured CRM rows |
 | `facebook-leads.csv` | FB-style headers + multi-phone |
 | `google-ads.csv` | Ads export shape |
 | `messy-re.csv` | Messy real-estate CRM |

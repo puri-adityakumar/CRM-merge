@@ -9,7 +9,7 @@ export default function Home() {
         <ImportFlow />
       </main>
       <footer className="border-t border-border py-3 text-center text-xs text-muted-foreground">
-        CRMerge — AI CSV Importer
+        AI CSV to structured output
       </footer>
     </div>
   );

@@ -125,7 +125,7 @@ export function ImportFlow() {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6">
       <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-        Import CSV to CRM
+        CSV to structured output
       </h1>
 
       {/* Horizontal stepper — mobile only */}
@@ -227,7 +227,7 @@ export function ImportFlow() {
                 <CardTitle>Upload CSV</CardTitle>
                 <CardDescription>
                   Upload any valid CSV, preview the rows, then confirm to map
-                  fields into GrowEasy CRM format with AI. No processing runs
+                  fields into structured output with AI. No processing runs
                   until you confirm.
                 </CardDescription>
               </CardHeader>
@@ -287,7 +287,7 @@ export function ImportFlow() {
                 <CardDescription>
                   {importFailed
                     ? "The import request could not be completed. You can retry or choose another file."
-                    : "Streaming AI extraction progress from the server. This may take a moment for larger files."}
+                    : "Streaming AI extraction from the server. This may take a moment for larger files."}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -380,3 +380,4 @@ export function ImportFlow() {
     </div>
   );
 }
+

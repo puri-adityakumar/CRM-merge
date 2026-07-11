@@ -94,7 +94,7 @@ export function ImportProgress({
         <p className="text-sm text-muted-foreground">
           Processing{" "}
           <span className="font-medium text-foreground">{fileName}</span>
-          {" — "}
+          {" · "}
           <span className="tabular-nums">{formatElapsed(startedAt)}</span>
           {" elapsed"}
           {estimatedMs != null && (

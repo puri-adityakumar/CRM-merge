@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CRMerge — AI CSV Importer",
+  title: "CRMerge — AI CSV to structured output",
   description:
-    "Upload any CSV, preview rows, and import leads into GrowEasy CRM format with AI.",
+    "Upload any CSV and transform it into clean, structured output with AI. No manual mapping needed.",
 };
 
 export default function RootLayout({

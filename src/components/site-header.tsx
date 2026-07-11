@@ -1,6 +1,6 @@
 "use client";
 
-import { MoonIcon, SunIcon } from "lucide-react";
+import { MoonIcon, SparklesIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 
@@ -28,7 +28,8 @@ export function SiteHeader() {
           <div className="leading-tight">
             <p className="text-sm font-semibold tracking-tight">CRMerge</p>
             <p className="text-xs text-muted-foreground">
-              AI CSV → GrowEasy CRM
+              <SparklesIcon className="mr-1 inline-block size-3" />
+              AI CSV to structured output
             </p>
           </div>
         </div>
