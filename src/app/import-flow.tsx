@@ -5,13 +5,11 @@ import {
   AlertCircleIcon,
   CheckCircle2Icon,
   Loader2Icon,
-  RotateCcwIcon,
 } from "lucide-react";
 import { toast } from "sonner";
 import { UploadZone } from "@/components/upload-zone";
 import { PreviewTable } from "@/components/preview-table";
-import { ResultsTable } from "@/components/results-table";
-import { StatsCards } from "@/components/stats-cards";
+import { ResultsSection } from "@/app/results-section";
 import { Button } from "@/components/ui/button";
 import { ImportProgress } from "@/components/import-progress";
 import { useParseCsv } from "@/hooks/use-parse-csv";
@@ -332,28 +330,7 @@ export function ImportFlow() {
           )}
 
           {step === "results" && result?.ok && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <h2 className="flex items-center gap-2 text-lg font-semibold">
-                    <CheckCircle2Icon className="size-4 text-primary" />
-                    Import complete
-                  </h2>
-                  <p className="text-sm text-muted-foreground">
-                    AI-mapped records from your CSV.
-                  </p>
-                </div>
-                <Button type="button" variant="outline" onClick={resetAll}>
-                  <RotateCcwIcon />
-                  Import another
-                </Button>
-              </div>
-              <StatsCards stats={result.stats} />
-              <ResultsTable
-                imported={result.imported}
-                skipped={result.skipped}
-              />
-            </div>
+            <ResultsSection result={result} onImportAnother={resetAll} />
           )}
         </div>
       </div>

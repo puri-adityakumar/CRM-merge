@@ -28,46 +28,40 @@ const PREVIEW_FIELDS = [
 export function ResultsTable({ imported, skipped }: ResultsTableProps) {
   return (
     <div className="space-y-8" data-testid="results-table">
-      <section className="space-y-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <h3 className="text-sm font-semibold">Imported records</h3>
-          <Badge variant="default">{imported.length}</Badge>
-        </div>
-        {imported.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            No records were imported.
-          </p>
-        ) : (
-          <div className="max-h-[calc(100dvh-18rem)] overflow-auto rounded-lg border border-border">
-            <table className="w-full caption-bottom text-sm">
-              <TableHeader className="sticky top-0 z-10 bg-muted/95 backdrop-blur-sm">
-                <TableRow>
-                  <TableHead className="w-12 text-muted-foreground">#</TableHead>
+      {imported.length === 0 ? (
+        <p className="text-sm text-muted-foreground px-2 py-4">
+          No records were imported.
+        </p>
+      ) : (
+        <div className="max-h-[calc(100dvh-18rem)] overflow-auto rounded-lg border border-border">
+          <table className="w-full caption-bottom text-sm">
+            <TableHeader className="sticky top-0 z-10 bg-muted/95 backdrop-blur-sm">
+              <TableRow>
+                <TableHead className="w-12 text-muted-foreground">#</TableHead>
+                {PREVIEW_FIELDS.map((f) => (
+                  <TableHead key={f}>{f}</TableHead>
+                ))}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {imported.map((row, i) => (
+                <TableRow key={i}>
+                  <TableCell className="text-muted-foreground tabular-nums">
+                    {i + 1}
+                  </TableCell>
                   {PREVIEW_FIELDS.map((f) => (
-                    <TableHead key={f}>{f}</TableHead>
+                    <TableCell key={f} title={String(row[f] ?? "")}>
+                      {row[f] || (
+                        <span className="text-muted-foreground">—</span>
+                      )}
+                    </TableCell>
                   ))}
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {imported.map((row, i) => (
-                  <TableRow key={i}>
-                    <TableCell className="text-muted-foreground tabular-nums">
-                      {i + 1}
-                    </TableCell>
-                    {PREVIEW_FIELDS.map((f) => (
-                      <TableCell key={f} title={String(row[f] ?? "")}>
-                        {row[f] || (
-                          <span className="text-muted-foreground">—</span>
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </table>
-          </div>
-        )}
-      </section>
+              ))}
+            </TableBody>
+          </table>
+        </div>
+      )}
 
       <section className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
