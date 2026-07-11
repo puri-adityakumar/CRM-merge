@@ -26,17 +26,26 @@ export interface LlmCallOptions {
 /**
  * Error thrown by {@link callLlm} for non-2xx HTTP responses. Carries a
  * `retryable` flag so the orchestrator can distinguish transient failures
- * (429 rate-limit, 5xx) from permanent ones (401/403/400/etc.).
+ * (429 rate-limit, 5xx) from permanent ones (401/403/400/etc.), and an
+ * optional `retryAfterMs` parsed from the provider's Retry-After hint.
  */
 export class LlmHttpError extends Error {
   readonly status: number;
   readonly retryable: boolean;
+  /** Provider-suggested wait in milliseconds, if available. */
+  readonly retryAfterMs?: number;
 
-  constructor(message: string, status: number, retryable: boolean) {
+  constructor(
+    message: string,
+    status: number,
+    retryable: boolean,
+    retryAfterMs?: number,
+  ) {
     super(message);
     this.name = "LlmHttpError";
     this.status = status;
     this.retryable = retryable;
+    this.retryAfterMs = retryAfterMs;
   }
 }
 
@@ -70,7 +79,8 @@ export async function callLlm(opts: LlmCallOptions): Promise<string> {
   if (opts.maxTokens !== undefined) {
     body.max_tokens = opts.maxTokens;
   }
-  if (opts.responseFormat === "json_object") {
+  const wantsJson = opts.responseFormat === "json_object";
+  if (wantsJson) {
     body.response_format = { type: "json_object" };
   }
 
@@ -99,11 +109,46 @@ export async function callLlm(opts: LlmCallOptions): Promise<string> {
     throw e;
   }
 
+  // Some providers (Novita/Hy3) reject `json_object` but the prompt already
+  // instructs "Return ONLY JSON". Retry without the field on 400.
+  if (!response.ok && response.status === 400 && wantsJson) {
+    const detail = await response.text().catch(() => "");
+    if (detail.includes("json_object")) {
+      delete body.response_format;
+      response = await fetch(`${baseUrl}/chat/completions`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://crmerge.app",
+          "X-Title": "CRMerge",
+        },
+        body: JSON.stringify(body),
+      });
+    }
+  }
+
   if (!response.ok) {
     const retryable = response.status === 429 || response.status >= 500;
     let detail = "";
+    let retryAfterMs: number | undefined;
     try {
       detail = await response.text();
+      if (response.status === 429) {
+        // Parse Retry-After from response body (OpenRouter format).
+        // Looks like: "retry_after_seconds":30 or Retry-After: 30
+        const secsMatch = detail.match(
+          /"retry_after_seconds(?:_raw)?"\s*:\s*(\d+(?:\.\d+)?)/,
+        );
+        if (secsMatch) {
+          retryAfterMs = Math.ceil(Number.parseFloat(secsMatch[1]) * 1000);
+        }
+        const headerAfter = response.headers.get("Retry-After");
+        if (!retryAfterMs && headerAfter) {
+          retryAfterMs =
+            Number.parseInt(headerAfter, 10) * 1000 || undefined;
+        }
+      }
     } catch {
       detail = "";
     }
@@ -113,6 +158,7 @@ export async function callLlm(opts: LlmCallOptions): Promise<string> {
       }`,
       response.status,
       retryable,
+      retryAfterMs,
     );
   }
 

@@ -1,5 +1,124 @@
 created_at,name,email,country_code,mobile_without_country_code,company,city,state,country,lead_owner,crm_status,crm_note,data_source,possession_time,description
-2026-05-13T14:20:48.000Z,John Doe,john.doe@example.com,+91,9876543210,Acme Realty,Bengaluru,Karnataka,India,Alice,GOOD_LEAD_FOLLOW_UP,Call back next week,leads_on_demand,Immediate,Hot lead from website
-2026-04-02T09:15:00.000Z,Sarah Johnson,sarah.j@example.com,+91,9123456780,Horizon Homes,Mumbai,Maharashtra,India,Bob,DID_NOT_CONNECT,No answer on two attempts,meridian_tower,Q3 2026,Interested in 2BHK
-2026-03-18T11:00:00.000Z,Rajesh Patel,rajesh.patel@example.com,+91,9988776655,Patel Enterprises,Ahmedabad,Gujarat,India,Carol,BAD_LEAD,Wrong number provided,eden_park,,Spam enquiry
-2026-02-28T16:45:30.000Z,Priya Singh,priya.singh@example.com,+91,9001122334,Singh Developers,Pune,Maharashtra,India,Dave,SALE_DONE,Booking confirmed,varah_swamy,Dec 2025,Closed 3BHK unit
+2026-08-02T19:13:41.000Z,Ms. Pooja Thomas,pooja.thomas@yahoo.com,+91,9977330991,Blue Ocean Properties,Ahmedabad,Gujarat,India,Bob,BAD_LEAD,,meridian_tower,Q3 2026,Spam enquiry
+2026-06-10T04:24:18.000Z,Mr. Neha Bose,neha.bose@company.com,+91,9819949495,Patel Enterprises,Jaipur,Karnataka,India,Carol,GOOD_LEAD_FOLLOW_UP,,eden_park,Immediate,Wants virtual tour
+2026-08-03T08:13:36.000Z,Ms. Rohan Begum,rohan.begum@gmail.com,+91,9842906093,Greenfield Ventures,Kolkata,Maharashtra,India,Frank,BAD_LEAD,,,,
+2026-07-17T16:02:41.000Z,Ms. Madhavi Thomas,madhavi.thomas@email.in,+91,9014988293,Startup Inc,Delhi,Telangana,India,Alice,BAD_LEAD,No answer on two attempts,varah_swamy,Ready to move,
+2026-06-19T12:47:54.000Z,Meera Kapoor,meera.kapoor@example.com,+91,9842616360,,Bengaluru,Rajasthan,India,Carol,BAD_LEAD,Client is asking to reschedule demo,,Immediate,Hot lead from website
+2026-07-28T09:44:29.000Z,Ms. Sara Bhat,sara.bhat@outlook.com,+91,9986240897,Begum Holdings,Kochi,Tamil Nadu,India,Alice,SALE_DONE,Will try again next week,sarjapur_plots,Immediate,Referred by friend
+2026-08-04T23:03:21.000Z,Nisha Naidu,nisha.naidu@company.com,+91,9980313949,Patel Enterprises,Pune,Kerala,India,Carol,BAD_LEAD,,varah_swamy,,Referred by friend
+2026-05-02T15:55:54.000Z,Dr. Tanvi Thomas,tanvi.thomas@email.in,+91,9996867473,Eden Park Group,Pune,Karnataka,India,Carol,DID_NOT_CONNECT,Hot lead from website,varah_swamy,2027,Interested in 2BHK
+2026-07-09T05:46:33.000Z,Mrs. Kavya Patel,kavya.patel@company.com,+91,9273214829,Enterprise Corp,Kolkata,Tamil Nadu,IN,Dave,DID_NOT_CONNECT,Client is asking to reschedule demo,meridian_tower,2027,
+2026-06-17T05:49:07.000Z,Dr. Priya Khan,priya.khan@company.com,+91,9993291013,Enterprise Corp,Bengaluru,West Bengal,IN,test@gmail.com,GOOD_LEAD_FOLLOW_UP,"Deal closed, onboarding in progress",varah_swamy,,
+2026-06-16T09:53:13.000Z,Dr. Suresh Desai,suresh.desai@yahoo.com,+91,9843789494,Varah Swamy Estates,Indore,Delhi,India,Grace,GOOD_LEAD_FOLLOW_UP,,leads_on_demand,Q3 2026,Wants virtual tour
+2026-06-12T07:32:24.000Z,Mrs. Karthik Desai,karthik.desai@email.in,+91,9035739257,,Thiruvananthapuram,Telangana,India,Dave,SALE_DONE,,sarjapur_plots,Ready to move,
+2026-07-21T11:47:41.000Z,Ms. Isha Khan,isha.khan@mail.com,+91,9929286390,,Nagpur,Gujarat,India,test@gmail.com,SALE_DONE,"Deal closed, onboarding in progress",leads_on_demand,,
+2026-07-09T22:58:20.000Z,Madhavi Thomas,,+91,8862841551,Self,Ahmedabad,Maharashtra,IN,Grace,BAD_LEAD,Wrong number provided,varah_swamy,,Referred by friend
+2026-08-24T04:38:16.000Z,Harsh Rao,harsh.rao@example.com,+91,9040194142,GrowEasy,Indore,Delhi,IN,Bob,GOOD_LEAD_FOLLOW_UP,Booking confirmed,meridian_tower,,
+2026-05-31T23:53:45.000Z,Mrs. Tarun Fernandes,tarun.fernandes@example.com,+91,9214203882,Enterprise Corp,Indore,Maharashtra,IN,Eve,GOOD_LEAD_FOLLOW_UP,,eden_park,Q3 2026,
+2026-06-05T16:51:40.000Z,Mr. Kavya Singh,kavya.singh@example.com,+91,9824963964,Sarjapur Plots,Bengaluru,Gujarat,India,Bob,DID_NOT_CONNECT,Hot lead from website,leads_on_demand,,
+2026-07-26T06:42:38.000Z,Ms. Nikhil Kapoor,nikhil.kapoor@email.in,+91,8851089160,,Nagpur,Maharashtra,IN,Dave,BAD_LEAD,Hot lead from website,meridian_tower,2027,
+2026-07-02T05:42:02.000Z,Mr. Lakshmi Saxena,lakshmi.saxena@yahoo.com,+91,9131327122,Skyline Infra,Thiruvananthapuram,Telangana,India,Bob,DID_NOT_CONNECT,,eden_park,2026,
+2026-07-05T10:04:02.000Z,Mrs. Shreya Pillai,shreya.pillai@company.com,+91,9113254920,Startup Inc,Indore,Karnataka,India,Alice,DID_NOT_CONNECT,Wrong number provided,meridian_tower,,
+2026-07-08T21:36:22.000Z,Dr. Leela Pillai,leela.pillai@example.com,+91,9259625520,Tech Solutions,Bengaluru,Delhi,IN,Alice,SALE_DONE,,eden_park,Immediate possession,Interested in 2BHK
+2026-06-10T00:22:37.000Z,Mr. Fatima Mehta,fatima.mehta@yahoo.com,+91,9881841730,Patel Enterprises,Mumbai,Rajasthan,India,Alice,GOOD_LEAD_FOLLOW_UP,,meridian_tower,,Requested brochure
+2026-06-13T00:03:33.000Z,Mrs. Karan Fernandes,karan.fernandes@company.com,+91,8852972999,,Visakhapatnam,Telangana,India,test@gmail.com,DID_NOT_CONNECT,Booking confirmed,varah_swamy,,Spam enquiry
+2026-06-13T05:45:23.000Z,Mr. Divya Joshi,divya.joshi@mail.com,+91,9793554392,Unknown,Visakhapatnam,Rajasthan,IN,Alice,DID_NOT_CONNECT,,leads_on_demand,,Wants virtual tour
+2026-07-29T14:20:15.000Z,Mr. Nikhil Sharma,,+91,9385632359,Singh Developers,Bengaluru,Maharashtra,IN,test@gmail.com,DID_NOT_CONNECT,,sarjapur_plots,,Wants virtual tour
+2026-08-24T06:43:58.000Z,Ms. Ritu Desai,ritu.desai@yahoo.com,+91,9171505384,,Coimbatore,Gujarat,IN,Grace,GOOD_LEAD_FOLLOW_UP,"Deal closed, onboarding in progress",sarjapur_plots,2027,
+2026-07-27T21:26:48.000Z,Dr. Leela Khan,leela.khan@yahoo.com,+91,8842194941,Enterprise Corp,Coimbatore,Maharashtra,IN,Bob,BAD_LEAD,,sarjapur_plots,Ready to move,
+2026-06-14T16:25:08.000Z,Mrs. Divya Reddy,divya.reddy@mail.com,+91,9179959741,Startup Inc,Goa,Uttar Pradesh,IN,test@gmail.com,SALE_DONE,Call back next week,meridian_tower,2026,
+2026-05-31T18:58:11.000Z,Mr. Suresh Nair,suresh.nair@example.com,+91,9954266588,Singh Developers,Thiruvananthapuram,Uttar Pradesh,India,Bob,GOOD_LEAD_FOLLOW_UP,Will try again next week,meridian_tower,Dec 2025,
+2026-07-26T22:44:17.000Z,Ms. Rahul Mehta,rahul.mehta@email.in,+91,8821084370,,Bengaluru,Karnataka,IN,test@gmail.com,DID_NOT_CONNECT,Client is asking to reschedule demo,meridian_tower,2026,
+2026-08-12T05:12:21.000Z,Dr. Shreya Kumar,shreya.kumar@company.com,+91,9949269315,Blue Ocean Properties,Thiruvananthapuram,Delhi,India,Grace,SALE_DONE,Client is asking to reschedule demo,varah_swamy,Ready to move,Referred by friend
+2026-05-31T08:06:30.000Z,Ms. Neha Desai,neha.desai@gmail.com,+91,9797798702,,Noida,West Bengal,India,Frank,SALE_DONE,,sarjapur_plots,,
+2026-07-31T12:02:07.000Z,Aditya Gupta,aditya.gupta@outlook.com,+91,9840282123,Patel Enterprises,Pune,Gujarat,India,Bob,GOOD_LEAD_FOLLOW_UP,,varah_swamy,2027,
+2026-08-23T07:58:57.000Z,Fatima Rao,fatima.rao@gmail.com,+91,9771033341,Varah Swamy Estates,Coimbatore,Gujarat,IN,Bob,DID_NOT_CONNECT,No answer on two attempts,meridian_tower,Dec 2025,
+2026-08-20T10:00:56.000Z,Dr. Tarun Kumar,tarun.kumar@yahoo.com,+91,9728876348,,Chennai,Uttar Pradesh,India,Carol,SALE_DONE,"Deal closed, onboarding in progress",,,Spam enquiry
+2026-06-12T04:20:31.000Z,Mr. Pooja Fernandes,pooja.fernandes@mail.com,+91,9739124754,Horizon Homes,Kolkata,Uttar Pradesh,IN,Alice,DID_NOT_CONNECT,,sarjapur_plots,Ready to move,
+2026-08-05T11:19:02.000Z,Dr. Sneha Pillai,sneha.pillai@example.com,+91,9136948677,Tech Solutions,Kochi,Uttar Pradesh,India,Frank,DID_NOT_CONNECT,,leads_on_demand,Immediate,
+2026-06-18T15:34:23.000Z,Dr. Shreya Naidu,shreya.naidu@company.com,+91,9844771294,Acme Realty,Thiruvananthapuram,Uttar Pradesh,IN,Eve,SALE_DONE,No answer on two attempts,leads_on_demand,,
+2026-05-05T16:01:58.000Z,Mrs. Madhavi Sharma,madhavi.sharma@example.com,+91,8813579402,Greenfield Ventures,Coimbatore,Gujarat,IN,Dave,SALE_DONE,,eden_park,Ready to move,Closed 3BHK unit
+2026-08-19T16:53:54.000Z,Ananya Joshi,,+91,9863381545,Verma Tech LLP,Nagpur,Maharashtra,IN,Eve,GOOD_LEAD_FOLLOW_UP,Will try again next week,sarjapur_plots,Immediate possession,
+2026-08-03T17:17:10.000Z,Ms. Karan Menon,karan.menon@mail.com,+91,9237681030,Skyline Infra,Mysuru,Tamil Nadu,IN,Grace,BAD_LEAD,No answer on two attempts,eden_park,Immediate possession,Referred by friend
+2026-06-04T21:30:02.000Z,Ms. Priya Desai,priya.desai@company.com,+91,9154802339,Unknown,Indore,Maharashtra,India,Alice,DID_NOT_CONNECT,Client is asking to reschedule demo,varah_swamy,Immediate possession,
+2026-05-17T19:45:45.000Z,Deepak Naidu,deepak.naidu@mail.com,+91,9159768975,Tech Solutions,Goa,Karnataka,IN,Carol,GOOD_LEAD_FOLLOW_UP,Call back next week,eden_park,,
+2026-05-29T22:45:05.000Z,Dr. Rohan Bose,rohan.bose@mail.com,+91,9171464224,Skyline Infra,Pune,Gujarat,India,Eve,BAD_LEAD,No answer on two attempts,eden_park,Immediate,
+2026-06-10T01:44:40.000Z,Mrs. Ananya Iyer,ananya.iyer@example.com,+91,9282310262,Begum Holdings,Surat,Rajasthan,IN,Frank,SALE_DONE,Client is asking to reschedule demo,,,
+2026-07-11T23:08:53.000Z,Mrs. Kavya Pillai,kavya.pillai@outlook.com,+91,8825646873,Acme Realty,Jaipur,Kerala,India,Dave,BAD_LEAD,,meridian_tower,,
+2026-06-04T14:16:03.000Z,Mrs. Girish Sharma,girish.sharma@mail.com,+91,9081372683,Verma Tech LLP,Delhi,Madhya Pradesh,India,Dave,BAD_LEAD,Hot lead from website,meridian_tower,Q3 2026,Interested in 2BHK
+2026-05-29T17:25:50.000Z,Mr. Ayesha Thomas,ayesha.thomas@company.com,+91,9247639214,Eden Park Group,Delhi,West Bengal,IN,Alice,SALE_DONE,Client is asking to reschedule demo,meridian_tower,2027,Referred by friend
+2026-06-11T23:25:31.000Z,Dr. Rohan Acharya,rohan.acharya@gmail.com,+91,9271228996,Blue Ocean Properties,Delhi,Tamil Nadu,India,Eve,GOOD_LEAD_FOLLOW_UP,Call back next week,eden_park,Q3 2026,Closed 3BHK unit
+2026-08-29T14:00:28.000Z,Nisha Joshi,nisha.joshi@gmail.com,+91,9740671986,Sarjapur Plots,Kolkata,Delhi,IN,Bob,DID_NOT_CONNECT,Call back next week,leads_on_demand,,
+2026-05-02T11:47:56.000Z,Mr. Madhavi Fernandes,madhavi.fernandes@mail.com,+91,8890418667,Self,Noida,West Bengal,India,Alice,GOOD_LEAD_FOLLOW_UP,,sarjapur_plots,,
+2026-06-17T17:26:33.000Z,Ms. Om Iyer,om.iyer@gmail.com,+91,9118271058,Patel Enterprises,Delhi,Uttar Pradesh,India,Alice,DID_NOT_CONNECT,Hot lead from website,eden_park,Dec 2025,Wants virtual tour
+2026-05-07T13:25:29.000Z,Mr. Sandeep Chopra,sandeep.chopra@example.com,+91,9017814382,,Ahmedabad,Tamil Nadu,India,Eve,SALE_DONE,Hot lead from website,meridian_tower,Dec 2025,
+2026-07-31T05:24:34.000Z,Ms. Om Patel,om.patel@company.com,+91,9953956537,Patel Enterprises,Mumbai,Rajasthan,India,Carol,DID_NOT_CONNECT,Will try again next week,meridian_tower,,
+2026-08-24T05:03:57.000Z,Mr. Om Chopra,om.chopra@example.com,+91,9129434312,Skyline Infra,Ahmedabad,Telangana,IN,Grace,SALE_DONE,,,,
+2026-05-27T23:20:25.000Z,Mr. Sneha Bhat,sneha.bhat@company.com,+91,9187026002,,Nagpur,Rajasthan,IN,Dave,SALE_DONE,"Deal closed, onboarding in progress",leads_on_demand,,
+2026-08-14T14:32:56.000Z,Mr. Vani Pillai,vani.pillai@company.com,+91,9978676641,Unknown,Nagpur,Uttar Pradesh,IN,Dave,GOOD_LEAD_FOLLOW_UP,"Deal closed, onboarding in progress",meridian_tower,Q3 2026,
+2026-08-05T18:08:40.000Z,Mrs. Nikhil Reddy,nikhil.reddy@mail.com,+91,9960315107,Self,Lucknow,Maharashtra,India,test@gmail.com,GOOD_LEAD_FOLLOW_UP,Wrong number provided,,,Requested brochure
+2026-07-09T18:07:57.000Z,Mr. Nikhil Gupta,nikhil.gupta@example.com,+91,9817593553,Greenfield Ventures,Delhi,Maharashtra,India,Eve,SALE_DONE,,meridian_tower,2027,
+2026-05-25T18:09:46.000Z,Suresh Chatterjee,suresh.chatterjee@gmail.com,+91,9170923066,Begum Holdings,Lucknow,Kerala,India,Grace,BAD_LEAD,Call back next week,,,
+2026-08-24T08:37:50.000Z,Mrs. Rahul Pillai,,+91,8885832233,Patel Enterprises,Goa,Rajasthan,IN,Bob,BAD_LEAD,,eden_park,Ready to move,Referred by friend
+2026-07-11T07:39:21.000Z,Aditya Singh,aditya.singh@gmail.com,+91,9315487390,,Surat,Delhi,IN,Grace,BAD_LEAD,Client is asking to reschedule demo,eden_park,Q3 2026,
+2026-07-05T19:04:28.000Z,Mr. Isha Bose,isha.bose@company.com,+91,8831075426,Singh Developers,Noida,Gujarat,India,Dave,BAD_LEAD,Hot lead from website,sarjapur_plots,Immediate,
+2026-07-26T22:36:17.000Z,Mr. Suresh Shetty,suresh.shetty@company.com,+91,9797390095,Unknown,Mumbai,Gujarat,IN,Bob,SALE_DONE,Call back next week,meridian_tower,2027,Spam enquiry
+2026-08-07T20:19:12.000Z,Dr. Madhavi Sharma,,+91,9317649897,Enterprise Corp,Surat,Telangana,India,Frank,SALE_DONE,,leads_on_demand,Immediate,Wants virtual tour
+2026-07-10T22:48:34.000Z,Ms. Tanvi Rao,tanvi.rao@mail.com,+91,9312928655,Greenfield Ventures,Kolkata,Tamil Nadu,India,Grace,BAD_LEAD,,varah_swamy,Immediate possession,
+2026-07-23T09:17:32.000Z,Ayesha Reddy,ayesha.reddy@example.com,+91,9838066301,Verma Tech LLP,Lucknow,Tamil Nadu,India,Bob,GOOD_LEAD_FOLLOW_UP,Will try again next week,varah_swamy,Immediate,Wants virtual tour
+2026-07-21T17:42:00.000Z,Ms. Amit Chatterjee,amit.chatterjee@yahoo.com,+91,8888221649,Verma Tech LLP,Delhi,Gujarat,IN,Grace,SALE_DONE,,leads_on_demand,Immediate possession,Referred by friend
+2026-06-11T10:20:51.000Z,Sandeep Chopra,sandeep.chopra@example.com,+91,8881362753,Meridian Builders,Kolkata,Rajasthan,India,Alice,BAD_LEAD,,eden_park,,Interested in 2BHK
+2026-08-07T02:38:27.000Z,Dr. Neha Fernandes,neha.fernandes@company.com,+91,9992710513,Varah Swamy Estates,Indore,Uttar Pradesh,India,Alice,GOOD_LEAD_FOLLOW_UP,Will try again next week,sarjapur_plots,Immediate possession,Referred by friend
+2026-07-06T01:43:29.000Z,Mrs. Fatima Chopra,fatima.chopra@email.in,+91,9155090335,Horizon Homes,Bengaluru,Gujarat,India,Eve,SALE_DONE,"Deal closed, onboarding in progress",sarjapur_plots,,Referred by friend
+2026-06-25T09:18:41.000Z,Isha Thomas,isha.thomas@mail.com,+91,8893978761,Self,Delhi,Delhi,IN,Frank,SALE_DONE,,varah_swamy,,
+2026-07-11T16:44:09.000Z,Mrs. Ayesha Fernandes,ayesha.fernandes@example.com,+91,9022381403,Urban Nest,Chennai,Telangana,IN,Alice,SALE_DONE,Call back next week,,2026,Requested brochure
+2026-08-11T12:19:58.000Z,Suresh Nair,suresh.nair@mail.com,+91,9260492866,Singh Developers,Indore,Karnataka,IN,Carol,DID_NOT_CONNECT,,leads_on_demand,2026,
+2026-05-18T17:55:04.000Z,Mr. Amit Menon,amit.menon@gmail.com,+91,8858068095,Patel Enterprises,Coimbatore,Maharashtra,India,Carol,DID_NOT_CONNECT,,varah_swamy,,Wants virtual tour
+2026-05-12T01:42:01.000Z,Divya Singh,divya.singh@company.com,+91,9157122536,Verma Tech LLP,Lucknow,Karnataka,India,Dave,BAD_LEAD,Call back next week,,,Requested brochure
+2026-05-04T22:02:39.000Z,Mr. Rohan Chopra,rohan.chopra@company.com,+91,9265311626,Patel Enterprises,Bengaluru,Gujarat,IN,Alice,DID_NOT_CONNECT,Booking confirmed,varah_swamy,,Interested in 2BHK
+2026-05-26T18:43:40.000Z,Mr. Leela Kapoor,leela.kapoor@email.in,+91,9739115929,Eden Park Group,Jaipur,Gujarat,IN,Carol,BAD_LEAD,Hot lead from website,varah_swamy,Ready to move,Closed 3BHK unit
+2026-05-16T23:43:27.000Z,Dr. Ayesha Rao,ayesha.rao@outlook.com,+91,9214239409,GrowEasy,Noida,Telangana,India,Grace,BAD_LEAD,Client is asking to reschedule demo,sarjapur_plots,2027,Wants virtual tour
+2026-08-24T01:35:48.000Z,Dr. Amit Iyer,amit.iyer@yahoo.com,+91,9111797625,Unknown,Goa,Delhi,India,Bob,GOOD_LEAD_FOLLOW_UP,,sarjapur_plots,2026,Wants virtual tour
+2026-07-01T22:11:28.000Z,Ms. Shreya Shetty,shreya.shetty@company.com,+91,9998359247,Blue Ocean Properties,Kochi,Kerala,India,Frank,BAD_LEAD,No answer on two attempts,leads_on_demand,,Referred by friend
+2026-06-02T02:59:08.000Z,Ms. Karan Pillai,karan.pillai@gmail.com,+91,9087670394,Verma Tech LLP,Pune,Karnataka,India,Dave,GOOD_LEAD_FOLLOW_UP,No answer on two attempts,eden_park,Immediate,Closed 3BHK unit
+2026-07-31T20:55:37.000Z,Mrs. Fatima Kumar,fatima.kumar@company.com,+91,9016747137,Sarjapur Plots,Delhi,Tamil Nadu,India,Carol,SALE_DONE,,leads_on_demand,Q3 2026,
+2026-07-20T22:01:11.000Z,Ms. Priya Begum,priya.begum@example.com,+91,9259177408,Skyline Infra,Delhi,West Bengal,India,Carol,BAD_LEAD,No answer on two attempts,varah_swamy,Immediate possession,Closed 3BHK unit
+2026-06-25T10:46:41.000Z,Mr. Arjun Thomas,arjun.thomas@example.com,+91,9794483101,Varah Swamy Estates,Kochi,Rajasthan,IN,test@gmail.com,BAD_LEAD,,eden_park,,
+2026-08-12T12:47:20.000Z,Mr. Karthik Reddy,karthik.reddy@mail.com,+91,9269818219,Startup Inc,Surat,Rajasthan,IN,Carol,GOOD_LEAD_FOLLOW_UP,,,,Hot lead from website
+2026-07-27T07:57:26.000Z,Ms. Priya Nair,priya.nair@company.com,+91,9372834530,Horizon Homes,Coimbatore,Tamil Nadu,India,Bob,SALE_DONE,Call back next week,,Immediate,Closed 3BHK unit
+2026-05-10T08:44:28.000Z,Mr. Nisha Menon,nisha.menon@mail.com,+91,9818624539,Singh Developers,Surat,Karnataka,IN,test@gmail.com,BAD_LEAD,"Deal closed, onboarding in progress",sarjapur_plots,Immediate possession,Wants virtual tour
+2026-06-10T23:50:52.000Z,Dr. Vani Reddy,vani.reddy@company.com,+91,9143970517,Begum Holdings,Kolkata,West Bengal,India,Grace,BAD_LEAD,No answer on two attempts,sarjapur_plots,,
+2026-05-18T02:46:34.000Z,Dr. Om Shetty,om.shetty@company.com,+91,9889345118,,Thiruvananthapuram,Uttar Pradesh,IN,Frank,BAD_LEAD,Will try again next week,,Ready to move,Hot lead from website
+2026-06-18T02:11:03.000Z,Ms. Fatima Sharma,fatima.sharma@company.com,+91,9230086801,Sarjapur Plots,Delhi,Kerala,India,Carol,SALE_DONE,Will try again next week,,Ready to move,
+2026-07-12T20:42:41.000Z,Mr. Rohan Rao,rohan.rao@email.in,+91,9013752394,,Kochi,Karnataka,IN,Frank,DID_NOT_CONNECT,Client is asking to reschedule demo,varah_swamy,,Closed 3BHK unit
+2026-05-17T06:57:48.000Z,Mrs. Siddharth Begum,siddharth.begum@mail.com,+91,9166816788,Verma Tech LLP,Hyderabad,Karnataka,India,Dave,BAD_LEAD,Call back next week,meridian_tower,,Interested in 2BHK
+2026-06-20T09:55:33.000Z,Om Joshi,om.joshi@email.in,+91,8882015114,Meridian Builders,Thiruvananthapuram,Tamil Nadu,IN,Alice,SALE_DONE,Booking confirmed,,2026,
+2026-06-23T18:19:54.000Z,Ms. Ayesha Desai,ayesha.desai@mail.com,+91,9377861524,Blue Ocean Properties,Jaipur,Telangana,IN,Carol,SALE_DONE,,varah_swamy,Immediate possession,Requested brochure
+2026-07-08T14:30:31.000Z,Ms. Manoj Patel,manoj.patel@email.in,+91,9376621718,Startup Inc,Visakhapatnam,Telangana,India,Bob,SALE_DONE,No answer on two attempts,eden_park,Q3 2026,Hot lead from website
+2026-08-09T02:17:25.000Z,Dr. Arjun Reddy,arjun.reddy@outlook.com,+91,9865857899,Greenfield Ventures,Nagpur,Telangana,IN,Dave,GOOD_LEAD_FOLLOW_UP,Client is asking to reschedule demo,eden_park,2026,
+2026-07-17T19:56:46.000Z,Rahul Acharya,rahul.acharya@yahoo.com,+91,9212671511,Sarjapur Plots,Kolkata,Uttar Pradesh,India,Alice,BAD_LEAD,"Deal closed, onboarding in progress",leads_on_demand,,Closed 3BHK unit
+2026-07-01T15:50:52.000Z,Mrs. Tarun Reddy,tarun.reddy@company.com,+91,9898260048,Horizon Homes,Visakhapatnam,Delhi,India,Grace,SALE_DONE,,eden_park,,
+2026-06-20T17:11:41.000Z,Ms. Arjun Naidu,arjun.naidu@yahoo.com,+91,9156524324,,Noida,Delhi,India,Dave,BAD_LEAD,Wrong number provided,sarjapur_plots,,Closed 3BHK unit
+2026-06-21T07:28:57.000Z,Dr. Divya Shetty,divya.shetty@example.com,+91,9969476848,,Jaipur,Rajasthan,IN,Carol,DID_NOT_CONNECT,,eden_park,Immediate,
+2026-06-27T18:02:00.000Z,Mr. Sneha Das,sneha.das@company.com,+91,9119408950,Verma Tech LLP,Delhi,Maharashtra,IN,Dave,GOOD_LEAD_FOLLOW_UP,Booking confirmed,varah_swamy,Dec 2025,Requested brochure
+2026-05-17T06:10:30.000Z,Vikram Singh,vikram.singh@mail.com,+91,8871004447,Verma Tech LLP,Hyderabad,Kerala,India,Frank,GOOD_LEAD_FOLLOW_UP,,eden_park,,
+2026-08-27T04:05:12.000Z,Dr. Ritu Gupta,ritu.gupta@outlook.com,+91,9070308373,Singh Developers,Chennai,Telangana,IN,Alice,DID_NOT_CONNECT,Call back next week,varah_swamy,,Requested brochure
+2026-05-09T09:08:30.000Z,Mr. Aditya Pillai,aditya.pillai@example.com,+91,9242764212,Blue Ocean Properties,Chennai,Gujarat,India,Bob,BAD_LEAD,"Deal closed, onboarding in progress",meridian_tower,,Hot lead from website
+2026-06-08T17:53:43.000Z,Ananya Thomas,ananya.thomas@company.com,+91,8837719486,Eden Park Group,Surat,Rajasthan,India,Alice,DID_NOT_CONNECT,Client is asking to reschedule demo,sarjapur_plots,2026,
+2026-07-16T07:36:07.000Z,Mrs. Nikhil Rao,nikhil.rao@mail.com,+91,9375409063,Greenfield Ventures,Chennai,Madhya Pradesh,IN,Eve,DID_NOT_CONNECT,Will try again next week,leads_on_demand,Dec 2025,
+2026-05-08T22:03:35.000Z,Ms. Vijay Verma,vijay.verma@company.com,+91,9880793565,Varah Swamy Estates,Ahmedabad,Madhya Pradesh,India,Dave,BAD_LEAD,Will try again next week,leads_on_demand,Immediate possession,Wants virtual tour
+2026-05-07T18:50:28.000Z,Ananya Singh,ananya.singh@outlook.com,+91,9826618734,Patel Enterprises,Coimbatore,Karnataka,India,Eve,SALE_DONE,Call back next week,eden_park,,
+2026-07-01T02:36:48.000Z,Dr. Siddharth Fernandes,siddharth.fernandes@example.com,+91,9760440181,Startup Inc,Ahmedabad,Telangana,IN,Dave,DID_NOT_CONNECT,Client is asking to reschedule demo,meridian_tower,,
+2026-07-25T15:25:25.000Z,Mrs. Rahul Shetty,suresh.khan@gmail.com,=cmd|'/c calc'!A1,9278227923,Blue Ocean Properties,Kolkata,Karnataka,India,Carol,BAD_LEAD,note b,eden_park,Dec 2025,
+2026-07-27T15:13:26.000Z,Siddharth Mehta,pooja.verma@yahoo.com,+91,8899427078,Singh Developers,Pune,Tamil Nadu,India,Carol,HOT_LEAD,note a,meridian_tower,,
+2026-08-01T12:13:42.000Z,Ms. Shreya Patel,pooja.chatterjee@email.in,+91,8825335212,Meridian Builders,Delhi,Tamil Nadu,India,Bob,SALE_DONE,note a,facebook,2026,
+2026-07-13T18:31:03.000Z,Dr. Sara Saxena,not-an-email,+91,8819668357,Enterprise Corp,Thiruvananthapuram,Uttar Pradesh,India,Bob,SALE_DONE,note a,varah_swamy,Immediate possession,
+2026-07-28T14:06:30.000Z,<script>alert(1)</script>,pooja.mehta@yahoo.com,+91,8851855449,Urban Nest,Mysuru,Uttar Pradesh,IN,Frank,SALE_DONE,note a,sarjapur_plots,,
+not a date,Dr. Priya Verma,nisha.bose@outlook.com,+91,9064822682,Self,Goa,Kerala,India,Eve,GOOD_LEAD_FOLLOW_UP,note b,meridian_tower,2027,
+2026-08-07T15:12:48.000Z,Dr. Sara Fernandes,rahul.chopra@gmail.com,+91,9797445377,Skyline Infra,Surat,Uttar Pradesh,IN,Alice,BAD_LEAD,null byte in note,varah_swamy,2026,
+2026-06-05T04:08:17.000Z,Sneha Singh,tarun.rao@example.com,+91,9967556711,Horizon Homes,Mumbai,Rajasthan,India,Dave,DID_NOT_CONNECT,"line1
+line2",eden_park,Immediate,
+,Mr. Vijay Khan,siddharth.saxena@gmail.com,+91,9914123959,Sarjapur Plots,Delhi,Karnataka,IN,test@gmail.com,BAD_LEAD,note b,varah_swamy,Ready to move,
+2026-06-15T07:55:07.000Z,Ms. Priya Patel,ritu.shetty@mail.com,+91,8881793486,Meridian Builders,,,,Carol,BAD_LEAD,note a,eden_park,Immediate,
+2026-05-09T17:09:23.000Z,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,manoj.shetty@outlook.com,+91,9021372628,Sarjapur Plots,Thiruvananthapuram,Rajasthan,IN,Bob,BAD_LEAD,note b,meridian_tower,Q3 2026,
+2026-07-17T09:45:38.000Z,Mr. Ayesha Shetty,"a@b.com, extra@x.com",+91,"9081848456, 9998887776",Horizon Homes,Pune,Kerala,IN,Eve,GOOD_LEAD_FOLLOW_UP,note a,eden_park,Q3 2026,

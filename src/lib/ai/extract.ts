@@ -2,7 +2,7 @@ import { chunk } from "@/lib/csv/batch";
 import { parseLlmCrmRecord, type CrmRecord } from "@/lib/schema/crm";
 import { buildSystemPrompt, buildUserMessage } from "./prompt";
 import { postProcess, type SkippedRecord } from "./post-process";
-import { callLlm } from "./client";
+import { callLlm, LlmHttpError } from "./client";
 
 /** Aggregate stats for a single {@link extractLeads} run. */
 export interface ExtractionStats {
@@ -63,8 +63,9 @@ function emptyRecord(): CrmRecord {
 }
 
 /**
- * Reads a comma-separated env var (`LLM_FALLBACK_MODELS`) into a clean list,
- * dropping empty entries.
+ * Reads a comma-separated env var (`LLM_FALLBACK_MODELS`) into a clean,
+ * deduplicated list. The primary model is excluded from fallbacks to
+ * avoid double-counting against rate limits.
  */
 function readModelList(): string[] {
   const primary = (process.env.LLM_MODEL || "").trim();
@@ -73,9 +74,15 @@ function readModelList(): string[] {
     .map((m) => m.trim())
     .filter(Boolean);
 
-  const models = [...(primary ? [primary] : []), ...fallbacks];
+  const seen = new Set<string>();
+  const models: string[] = [];
+  for (const m of [primary, ...fallbacks]) {
+    if (m && !seen.has(m)) {
+      seen.add(m);
+      models.push(m);
+    }
+  }
   if (models.length === 0) {
-    // Sensible default if env is misconfigured; keeps the extractor functional.
     return ["meta-llama/llama-3.3-70b-instruct:free"];
   }
   return models;
@@ -130,9 +137,14 @@ function sleep(ms: number): Promise<void> {
 }
 
 /**
- * Calls `callLlm` for a single model, retrying transient (429/5xx/network)
- * errors up to `maxRetries` extra times with exponential backoff
- * (1s, 2s, 4s, ...). Non-retryable errors and exhausted retries rethrow.
+ * Calls `callLlm` for a single model, retrying ONLY non-rate-limit transient
+ * errors (5xx/network) up to `maxRetries` extra times with exponential
+ * backoff. 429 responses are NOT retried at this layer — they bubble up
+ * immediately so the fallback chain can try a different model instead.
+ *
+ * When the error carries a `retryAfterMs` hint (from a 429), it is
+ * preserved in the thrown error so the caller can wait before the next
+ * model attempt.
  */
 async function callWithRetries(
   model: string,
@@ -140,7 +152,7 @@ async function callWithRetries(
   maxRetries: number,
 ): Promise<string> {
   let lastError: unknown;
-  // total attempts = maxRetries + 1 (the initial try).
+
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       return await callLlm({
@@ -151,25 +163,29 @@ async function callWithRetries(
       });
     } catch (err) {
       lastError = err;
+      const isLlmError = err instanceof LlmHttpError;
+      const isRateLimited = isLlmError && err.status === 429;
       const retryable =
-        err !== null &&
-        typeof err === "object" &&
-        (err as { retryable?: boolean }).retryable === true;
+        isLlmError &&
+        !isRateLimited && // 429s bubble up to fallback, not retried here
+        err.retryable === true;
 
-      // Stop immediately on non-retryable errors or after the final attempt.
       if (!retryable || attempt === maxRetries) {
         throw err;
       }
       await sleep(1000 * 2 ** attempt);
     }
   }
-  // Unreachable, but keeps the type checker happy.
   throw lastError;
 }
 
 /**
- * Tries every model in `models` in order, each with its own retry budget,
- * until one returns successfully. Throws the last error if all fail.
+ * Tries every model in `models` in order, each with its own retry budget
+ * (for 5xx/network). 429 responses skip retries at the model level and
+ * move to the next fallback immediately. When a 429 carries a
+ * `retryAfterMs` hint, we wait for that duration before trying the next
+ * model rather than burning requests into a rate-limit wall. Throws the
+ * last error if all models fail.
  */
 async function callWithFallback(
   models: string[],
@@ -177,12 +193,23 @@ async function callWithFallback(
   maxRetries: number,
 ): Promise<string> {
   let lastError: unknown;
-  for (const model of models) {
+  for (let i = 0; i < models.length; i++) {
+    const model = models[i];
     try {
       return await callWithRetries(model, messages, maxRetries);
     } catch (err) {
       lastError = err;
-      // Move on to the next model in the fallback chain.
+      // Honor the provider's rate-limit cooldown before trying the next model.
+      // Skip the sleep on the last model — there's no next attempt, so waiting
+      // just adds dead time before the batch is recorded as failed.
+      if (
+        err instanceof LlmHttpError &&
+        err.status === 429 &&
+        err.retryAfterMs &&
+        i < models.length - 1
+      ) {
+        await sleep(err.retryAfterMs);
+      }
     }
   }
   throw lastError;
@@ -227,6 +254,13 @@ export async function extractLeads(
   const models = readModelList();
   const systemPrompt = buildSystemPrompt();
 
+  // Minimum interval between batch starts (ms). Keeps us under free-tier
+  // RPM limits by serializing batches with a cooldown gap.
+  const batchIntervalMs =
+    Number.parseInt(process.env.BATCH_INTERVAL_MS || "", 10) || 3000;
+
+  let lastBatchEnd = 0;
+
   // Collected across all batches, then handed to postProcess in one shot.
   const collected: CrmRecord[] = [];
   const meta: CandidateMeta[] = [];
@@ -238,6 +272,12 @@ export async function extractLeads(
     const batchStartIndex = batches
       .slice(0, batchIndex)
       .reduce((sum, b) => sum + b.length, 0);
+
+    // Ensure minimum gap between batches to stay under RPM limits.
+    const elapsed = Date.now() - lastBatchEnd;
+    if (elapsed < batchIntervalMs && batchIndex > 0) {
+      await sleep(batchIntervalMs - elapsed);
+    }
 
     const messages = [
       { role: "system" as const, content: systemPrompt },
@@ -263,6 +303,7 @@ export async function extractLeads(
         });
       }
       stats.batchesProcessed += 1;
+      lastBatchEnd = Date.now();
       onProgress?.({
         batchIndex,
         totalBatches: batches.length,
@@ -286,6 +327,7 @@ export async function extractLeads(
         });
       }
       stats.batchesProcessed += 1;
+      lastBatchEnd = Date.now();
       onProgress?.({
         batchIndex,
         totalBatches: batches.length,
