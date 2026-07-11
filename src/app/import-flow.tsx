@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
   AlertCircleIcon,
   CheckCircle2Icon,
+  FileSpreadsheetIcon,
   Loader2Icon,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -25,6 +26,14 @@ const STEPS: { id: FlowStep; label: string }[] = [
   { id: "results", label: "Results" },
 ];
 
+const SAMPLES = [
+  { file: "sample-crm.csv", label: "Structured CRM" },
+  { file: "facebook-leads.csv", label: "Facebook Leads" },
+  { file: "google-ads.csv", label: "Google Ads" },
+  { file: "messy-re.csv", label: "Messy Real Estate" },
+  { file: "no-contact.csv", label: "No Contact" },
+];
+
 function stepIndex(step: FlowStep): number {
   return STEPS.findIndex((s) => s.id === step);
 }
@@ -33,6 +42,7 @@ export function ImportFlow() {
   const [step, setStep] = useState<FlowStep>("upload");
   const [file, setFile] = useState<File | null>(null);
   const [importFailed, setImportFailed] = useState<boolean>(false);
+  const [tryingSample, setTryingSample] = useState<string | null>(null);
   const { preview, parsing, parseFile, reset: resetParse } = useParseCsv();
   const {
     importing,
@@ -95,6 +105,28 @@ export function ImportFlow() {
     toast.info("Import cancelled");
     resetAll();
   }, [cancel, resetAll]);
+
+  const handleTrySample = useCallback(async (name: string) => {
+    setTryingSample(name);
+    try {
+      const res = await fetch(`/samples/${name}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const blob = await res.blob();
+      const sampleFile = new File([blob], name, { type: "text/csv" });
+      const parsed = await parseFile(sampleFile);
+      if (!parsed) {
+        toast.error("Could not parse sample CSV.");
+        return;
+      }
+      setFile(sampleFile);
+      toast.success(`Loaded ${parsed.rowCount} rows from ${name}`);
+      setStep("preview");
+    } catch {
+      toast.error(`Could not load ${name}`);
+    } finally {
+      setTryingSample(null);
+    }
+  }, [parseFile]);
 
   const current = stepIndex(step);
 
@@ -234,6 +266,26 @@ export function ImportFlow() {
                 onFileAccepted={handleFileAccepted}
                 parsing={parsing}
               />
+
+              <div className="pt-4">
+                <p className="mb-2 text-center text-xs font-medium text-muted-foreground">
+                  Try a sample CSV
+                </p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {SAMPLES.map((s) => (
+                    <button
+                      key={s.file}
+                      type="button"
+                      disabled={parsing || tryingSample != null}
+                      onClick={() => handleTrySample(s.file)}
+                      className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground disabled:pointer-events-none disabled:opacity-50"
+                    >
+                      <FileSpreadsheetIcon className="size-3" />
+                      {s.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
