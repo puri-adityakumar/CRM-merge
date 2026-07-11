@@ -312,10 +312,8 @@ export async function extractLeads(
     ];
 
     let rawResponse: string;
-    let modelUsed: string | undefined;
     try {
       rawResponse = await callWithFallback(models, messages, maxRetries);
-      modelUsed = models[0]; // simplified — just log the attempted chain
     } catch (err) {
       // Entire batch failed every model + retry. Log and record rows as
       // skipped with reason "extraction_failed"; keep going.
@@ -404,7 +402,7 @@ export async function extractLeads(
     stats.batchesProcessed += 1;
     const batchDuration = Date.now() - batchStart;
     if (process.env.NODE_ENV === "development") {
-      const llmSkipped = entries.filter((e: any) => e?.skip === true || e?.data == null).length;
+      const llmSkipped = entries.filter((e) => e?.skip === true || e?.data == null).length;
       const parsed = entries.length - llmSkipped;
       console.log(
         `[extract] batch ${batchIndex + 1}/${batches.length}: ${batchDuration}ms — ${parsed} parsed, ${llmSkipped} LLM-skipped, ${entries.length} total`,

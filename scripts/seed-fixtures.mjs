@@ -40,8 +40,6 @@ const rng = makeRng(20260711);
 const rint = (min, max) => Math.floor(rng() * (max - min + 1)) + min;
 const pick = (arr) => arr[Math.floor(rng() * arr.length)];
 const chance = (p) => rng() < p;
-const shuffled = (arr) => { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = rint(0, i); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-
 // ============================================================
 // DATA POOLS — Indian real-estate domain
 // ============================================================
@@ -265,18 +263,6 @@ function fbDateTime() {
 function istDateTime() {
   const d = new Date(Date.UTC(2026, 4, 1) + rint(0, 70) * 86400000 + rint(0, 86399) * 1000);
   return `${d.getUTCFullYear()}-${pad2(d.getUTCMonth() + 1)}-${pad2(d.getUTCDate())} ${pad2(d.getUTCHours())}:${pad2(d.getUTCMinutes())}:${pad2(d.getUTCSeconds())} IST`;
-}
-
-// SQL datetime
-function sqlDateTime(dayOffset = 0) {
-  const d = new Date(Date.UTC(2026, 4, 1) + dayOffset * 86400000 + rint(0, 86399) * 1000);
-  return `${d.getUTCFullYear()}-${pad2(d.getUTCMonth() + 1)}-${pad2(d.getUTCDate())} ${pad2(d.getUTCHours())}:${pad2(d.getUTCMinutes())}:${pad2(d.getUTCSeconds())}`;
-}
-
-// Just a date (no time)
-function dateOnly(dayOffset = 0) {
-  const d = new Date(Date.UTC(2026, rint(0, 5), rint(1, 28)) + dayOffset * 86400000);
-  return `${d.getUTCFullYear()}-${pad2(d.getUTCMonth() + 1)}-${pad2(d.getUTCDate())}`;
 }
 
 // Ambiguous date formats that the AI and postProcess must handle

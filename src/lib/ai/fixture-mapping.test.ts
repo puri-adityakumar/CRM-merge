@@ -301,7 +301,7 @@ describe("fixture weak-LLM pipeline — parse + postProcess", () => {
       fs.readFileSync(path.join(FIXTURES_DIR, "sample-crm.csv"), "utf8"),
     );
     const shaped = rows.map(weakLlmShape);
-    const { imported, skipped } = postProcess(shaped);
+    const { imported } = postProcess(shaped);
     // Realistic fixtures include some no-contact rows (correctly skipped).
     // Assert that the MAJORITY imported and carry valid enum values.
     expect(imported.length).toBeGreaterThan(0);
