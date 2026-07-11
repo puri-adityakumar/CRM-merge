@@ -195,10 +195,23 @@ async function callWithFallback(
   let lastError: unknown;
   for (let i = 0; i < models.length; i++) {
     const model = models[i];
+    if (process.env.NODE_ENV === "development" && models.length > 1) {
+      console.log(`[extract] trying model ${i + 1}/${models.length}: ${model}`);
+    }
     try {
-      return await callWithRetries(model, messages, maxRetries);
+      const result = await callWithRetries(model, messages, maxRetries);
+      if (process.env.NODE_ENV === "development" && i > 0) {
+        console.log(`[extract] model ${model} succeeded (fallback hit)`);
+      }
+      return result;
     } catch (err) {
       lastError = err;
+      if (process.env.NODE_ENV === "development") {
+        const msg = err instanceof LlmHttpError
+          ? `${err.message} (status=${err.status}, retryable=${err.retryable})`
+          : String(err);
+        console.warn(`[extract] model ${model} failed: ${msg}`);
+      }
       // Honor the provider's rate-limit cooldown before trying the next model.
       // Skip the sleep on the last model — there's no next attempt, so waiting
       // just adds dead time before the batch is recorded as failed.
@@ -259,6 +272,12 @@ export async function extractLeads(
   const batchIntervalMs =
     Number.parseInt(process.env.BATCH_INTERVAL_MS || "", 10) || 3000;
 
+  if (process.env.NODE_ENV === "development") {
+    console.log(`[extract] ${rows.length} rows → ${batches.length} batches (BATCH_SIZE=${batchSize})`);
+    console.log(`[extract] model chain: ${models.join(" → ")}`);
+    console.log(`[extract] batch interval: ${batchIntervalMs}ms, max retries: ${maxRetries}`);
+  }
+
   let lastBatchEnd = 0;
 
   // Collected across all batches, then handed to postProcess in one shot.
@@ -276,7 +295,15 @@ export async function extractLeads(
     // Ensure minimum gap between batches to stay under RPM limits.
     const elapsed = Date.now() - lastBatchEnd;
     if (elapsed < batchIntervalMs && batchIndex > 0) {
+      if (process.env.NODE_ENV === "development") {
+        console.log(`[extract] batch ${batchIndex + 1}/${batches.length}: waiting ${batchIntervalMs - elapsed}ms (rate limit cooldown)...`);
+      }
       await sleep(batchIntervalMs - elapsed);
+    }
+
+    const batchStart = Date.now();
+    if (process.env.NODE_ENV === "development") {
+      console.log(`[extract] batch ${batchIndex + 1}/${batches.length}: sending ${batch.length} rows to LLM...`);
     }
 
     const messages = [
@@ -285,8 +312,10 @@ export async function extractLeads(
     ];
 
     let rawResponse: string;
+    let modelUsed: string | undefined;
     try {
       rawResponse = await callWithFallback(models, messages, maxRetries);
+      modelUsed = models[0]; // simplified — just log the attempted chain
     } catch (err) {
       // Entire batch failed every model + retry. Log and record rows as
       // skipped with reason "extraction_failed"; keep going.
@@ -317,7 +346,7 @@ export async function extractLeads(
       // Model returned non-JSON / no records array — treat like a failed batch.
       stats.batchesFailed += 1;
       console.error(
-        `[extractLeads] batch ${batchIndex}: unparseable LLM response`,
+        `[extractLeads] batch ${batchIndex + 1}/${batches.length}: unparseable LLM response (${Date.now() - batchStart}ms)`,
       );
       for (let i = 0; i < batch.length; i++) {
         failedSkipped.push({
@@ -373,6 +402,14 @@ export async function extractLeads(
     }
 
     stats.batchesProcessed += 1;
+    const batchDuration = Date.now() - batchStart;
+    if (process.env.NODE_ENV === "development") {
+      const llmSkipped = entries.filter((e: any) => e?.skip === true || e?.data == null).length;
+      const parsed = entries.length - llmSkipped;
+      console.log(
+        `[extract] batch ${batchIndex + 1}/${batches.length}: ${batchDuration}ms — ${parsed} parsed, ${llmSkipped} LLM-skipped, ${entries.length} total`,
+      );
+    }
     onProgress?.({
       batchIndex,
       totalBatches: batches.length,
@@ -381,7 +418,16 @@ export async function extractLeads(
   }
 
   // Enforce business rules across the full collected set in one pass.
+  const postStart = Date.now();
   const { imported, skipped } = postProcess(collected);
+  if (process.env.NODE_ENV === "development") {
+    console.log(`[extract] postProcess: ${Date.now() - postStart}ms — ${imported.length} imported, ${skipped.length} skipped (enforced)`);
+    const skipReasons = new Map<string, number>();
+    for (const s of skipped) skipReasons.set(s.reason, (skipReasons.get(s.reason) ?? 0) + 1);
+    for (const [reason, count] of skipReasons) {
+      console.log(`[extract]   ${reason}: ${count} rows`);
+    }
+  }
 
   // Reconcile per-candidate reasons with postProcess's partitioning.
   // postProcess assigns skipped.rowIndex = index in the `collected` array,

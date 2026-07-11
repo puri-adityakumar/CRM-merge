@@ -91,6 +91,10 @@ export async function runImport(
   }
 
   const buffer = toBuffer(fileBytes);
+  if (process.env.NODE_ENV === "development") {
+    console.log(`[import] received file: ${(buffer.byteLength / 1024).toFixed(1)} KB`);
+  }
+
   const sizeCheck = checkUploadSize(buffer.byteLength, maxBytes);
   if (!sizeCheck.ok) {
     return {
@@ -112,6 +116,12 @@ export async function runImport(
   }
 
   const rows = parsed.data;
+  const columns = rows.length > 0 ? Object.keys(rows[0]) : [];
+  if (process.env.NODE_ENV === "development") {
+    console.log(`[import] CSV parsed: ${rows.length} rows, ${columns.length} columns`);
+    console.log(`[import] headers: ${columns.join(", ")}`);
+  }
+
   const kind = classifyImportInput({ hasFile: true, rowCount: rows.length });
   if (kind === "empty_rows") {
     return {
@@ -123,7 +133,13 @@ export async function runImport(
   }
 
   try {
+    if (process.env.NODE_ENV === "development") {
+      console.log(`[import] starting extraction...`);
+    }
     const data = await extractFn(rows, onProgress);
+    if (process.env.NODE_ENV === "development") {
+      console.log(`[import] extraction complete: ${data.stats.totalImported} imported, ${data.stats.totalSkipped} skipped, ${data.stats.batchesFailed} batches failed`);
+    }
     return { ok: true, status: 200, data };
   } catch (err) {
     const message =

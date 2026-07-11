@@ -164,6 +164,33 @@ export async function callLlm(opts: LlmCallOptions): Promise<string> {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const json: any = await response.json();
+
+  // OpenRouter may return HTTP 200 with an error object when quota is exhausted
+  // (e.g. {"error":{"message":"Rate limit exceeded: free-models-per-day","code":429}}).
+  // Promote these to retryable errors so the fallback chain can react.
+  const apiError = json?.error;
+  if (apiError) {
+    const code = typeof apiError.code === "number" ? apiError.code : undefined;
+    const msg = typeof apiError.message === "string" ? apiError.message : "";
+    const isRateLimit =
+      code === 429 || /rate limit/i.test(msg) || /quota/i.test(msg);
+    let retryAfterMs: number | undefined;
+    if (isRateLimit) {
+      const secsMatch = msg.match(
+        /retry_after_seconds(?:_raw)?"?\s*:?\s*(\d+(?:\.\d+)?)/,
+      );
+      if (secsMatch) {
+        retryAfterMs = Math.ceil(Number.parseFloat(secsMatch[1]) * 1000);
+      }
+    }
+    throw new LlmHttpError(
+      `callLlm: API error: ${msg || JSON.stringify(apiError)}`,
+      code ?? response.status,
+      isRateLimit,
+      retryAfterMs,
+    );
+  }
+
   const content: string | undefined = json?.choices?.[0]?.message?.content;
   if (typeof content !== "string") {
     throw new LlmHttpError(
