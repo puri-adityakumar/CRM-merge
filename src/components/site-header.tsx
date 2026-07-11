@@ -12,7 +12,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <div className="flex items-center gap-2.5">
           <p
-            className="text-lg font-semibold -tracking-[0.03em]"
+            className="text-2xl font-semibold -tracking-[0.03em]"
             style={{ fontFamily: "var(--font-museo-moderno)" }}
           >
             CRMerge
