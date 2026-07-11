@@ -13,13 +13,9 @@ import { Button } from "@/components/ui/button";
 
 export type ImportProgressProps = {
   fileName?: string;
-  /** 0–100, null for indeterminate */
   percent: number | null;
-  /** Batch log ordered by batchIndex (0 → totalBatches-1) */
   batchLog: BatchLogEntry[];
-  /** When import was started (ms epoch) */
   startedAt: number | null;
-  /** Estimated remaining ms, null when unknown */
   estimatedMs: number | null;
   onCancel?: () => void;
   className?: string;
@@ -52,34 +48,81 @@ export function ImportProgress({
   onCancel,
   className,
 }: ImportProgressProps) {
+  const done = batchLog.filter((e) => e.status === "done").length;
+
   return (
     <div
-      className={cn("flex flex-col gap-4", className)}
+      className={cn("flex flex-col items-center gap-6", className)}
       data-testid="import-progress"
     >
-      <Progress value={percent} className="flex-col gap-3">
+      {/* Hero progress ring + label */}
+      <div className="flex flex-col items-center gap-4">
+        {/* Big circular progress indicator */}
+        <div className="relative flex size-24 items-center justify-center sm:size-28">
+          <svg className="size-full -rotate-90" viewBox="0 0 100 100" aria-hidden>
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="5"
+              className="text-border"
+            />
+            {percent != null && (
+              <circle
+                cx="50"
+                cy="50"
+                r="45"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="5"
+                strokeLinecap="round"
+                strokeDasharray={`${(percent / 100) * 283} 283`}
+                className="text-primary transition-[stroke-dasharray] duration-500"
+              />
+            )}
+          </svg>
+          <span className="absolute text-lg font-bold tabular-nums sm:text-xl">
+            {percent != null ? `${percent}%` : "..."}
+          </span>
+        </div>
+
+        <div className="text-center">
+          <p className="text-base font-semibold sm:text-lg">
+            {percent != null
+              ? `Batch ${done} of ${batchLog.length}`
+              : "Starting AI extraction…"}
+          </p>
+          {fileName && startedAt && (
+            <p className="mt-1 text-sm text-muted-foreground">
+              Processing{" "}
+              <span className="font-medium text-foreground">{fileName}</span>
+              {" · "}
+              <span className="tabular-nums">{formatElapsed(startedAt)}</span>
+              {" elapsed"}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* Progress bar */}
+      <Progress value={percent} className="w-full max-w-md flex-col gap-2">
         <div className="flex w-full items-center justify-between gap-2">
           <ProgressLabel>
-            {percent != null
-              ? `Batch ${batchLog.filter((e) => e.status === "done").length} / ${batchLog.length}`
-              : "Starting AI extraction…"}
+            {percent != null ? `${done} / ${batchLog.length} batches` : "Preparing…"}
           </ProgressLabel>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {estimatedMs != null && percent != null && (
               <span className="flex items-center gap-1 text-sm text-muted-foreground">
                 <ClockIcon className="size-3.5" />
                 {formatEstimated(estimatedMs)}
               </span>
             )}
-            {percent != null && (
-              <span className="text-sm text-muted-foreground tabular-nums">
-                {percent}%
-              </span>
-            )}
           </div>
         </div>
 
-        <ProgressTrack>
+        <ProgressTrack className="h-2">
           {percent != null ? (
             <ProgressIndicator />
           ) : (
@@ -90,28 +133,9 @@ export function ImportProgress({
         </ProgressTrack>
       </Progress>
 
-      {fileName && startedAt && (
-        <p className="text-sm text-muted-foreground">
-          Processing{" "}
-          <span className="font-medium text-foreground">{fileName}</span>
-          {" · "}
-          <span className="tabular-nums">{formatElapsed(startedAt)}</span>
-          {" elapsed"}
-          {estimatedMs != null && (
-            <>
-              {", "}
-              <span className="tabular-nums">{formatEstimated(estimatedMs)}</span>
-            </>
-          )}
-          {" · "}
-          <span className="tabular-nums">
-            {batchLog.filter((e) => e.status === "done").length}/{batchLog.length} batches
-          </span>
-        </p>
-      )}
-
+      {/* Activity log */}
       {batchLog.length > 0 && (
-        <div className="rounded-lg border border-border">
+        <div className="w-full max-w-md rounded-lg border border-border">
           <div className="border-b border-border px-3 py-1.5">
             <p className="text-xs font-medium text-muted-foreground">Activity</p>
           </div>
@@ -159,17 +183,15 @@ export function ImportProgress({
       )}
 
       {onCancel && (
-        <div className="flex justify-end">
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="text-destructive hover:bg-destructive/10 hover:text-destructive"
-            onClick={onCancel}
-          >
-            Cancel
-          </Button>
-        </div>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+          onClick={onCancel}
+        >
+          Cancel
+        </Button>
       )}
     </div>
   );
