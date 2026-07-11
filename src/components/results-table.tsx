@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { scanRecord } from "@/lib/guardrails/detect";
 
 export type ResultsTableProps = {
   imported: CrmRecord[];
@@ -37,17 +38,38 @@ export function ResultsTable({ imported, skipped }: ResultsTableProps) {
           <table className="w-full caption-bottom text-sm">
             <TableHeader className="sticky top-0 z-10 bg-muted/95 backdrop-blur-sm">
               <TableRow>
-                <TableHead className="w-12 text-muted-foreground">#</TableHead>
+                <TableHead className="w-10 text-muted-foreground">#</TableHead>
+                <TableHead className="w-12 text-muted-foreground">⚠</TableHead>
                 {PREVIEW_FIELDS.map((f) => (
                   <TableHead key={f}>{f}</TableHead>
                 ))}
               </TableRow>
             </TableHeader>
             <TableBody>
-              {imported.map((row, i) => (
+              {imported.map((row, i) => {
+                const violations = scanRecord(row as Record<string, string>);
+                const types = [...new Set(violations.map((v) => v.type))];
+                return (
                 <TableRow key={i}>
                   <TableCell className="text-muted-foreground tabular-nums">
                     {i + 1}
+                  </TableCell>
+                  <TableCell>
+                    {types.length > 0 ? (
+                      <div className="flex gap-1">
+                        {types.map((t) => (
+                          <Badge
+                            key={t}
+                            variant="outline"
+                            className="px-1 py-0 text-[9px] leading-tight text-destructive border-destructive/30"
+                          >
+                            {t === "xss" ? "xss" : t === "sql_injection" ? "sql" : "formula"}
+                          </Badge>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="text-muted-foreground text-xs">·</span>
+                    )}
                   </TableCell>
                   {PREVIEW_FIELDS.map((f) => (
                     <TableCell key={f} title={String(row[f] ?? "")}>
@@ -57,7 +79,8 @@ export function ResultsTable({ imported, skipped }: ResultsTableProps) {
                     </TableCell>
                   ))}
                 </TableRow>
-              ))}
+                );
+              })}
             </TableBody>
           </table>
         </div>
