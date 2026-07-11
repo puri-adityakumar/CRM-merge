@@ -351,20 +351,20 @@ export function ImportFlow() {
 
           {step === "results" && result?.ok && (
             <Card>
-              <CardHeader className="flex-row items-start justify-between gap-4">
-                <div className="space-y-1">
+              <CardHeader className="space-y-2">
+                <div className="flex items-center justify-between gap-4">
                   <CardTitle className="flex items-center gap-2">
                     <CheckCircle2Icon className="size-4 text-primary" />
                     Import complete
                   </CardTitle>
-                  <CardDescription>
-                    AI-mapped CRM records from your CSV.
-                  </CardDescription>
+                  <Button type="button" variant="outline" onClick={resetAll}>
+                    <RotateCcwIcon />
+                    Import another
+                  </Button>
                 </div>
-                <Button type="button" variant="outline" onClick={resetAll}>
-                  <RotateCcwIcon />
-                  Import another
-                </Button>
+                <CardDescription>
+                  AI-mapped CRM records from your CSV.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <StatsCards stats={result.stats} />
