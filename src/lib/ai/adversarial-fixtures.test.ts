@@ -16,7 +16,7 @@ import {
 import type { CrmRecord as SchemaCrmRecord } from "@/lib/schema/crm";
 import { CRM_STATUS_VALUES, DATA_SOURCE_VALUES } from "@/lib/schema/crm";
 
-const FIXTURES_DIR = path.resolve(__dirname, "../../../docs/samples");
+const FIXTURES_DIR = path.resolve(__dirname, "../../../public/samples");
 
 /** Weak "LLM-shaped" mapper mirrored from fixture-mapping.test.ts. */
 function weakLlmShape(row: Record<string, string>): SchemaCrmRecord {

@@ -12,7 +12,7 @@ import { postProcess } from "@/lib/ai/post-process";
 import type { CrmRecord } from "@/lib/schema/crm";
 import type { ExtractionResult } from "@/lib/ai/extract";
 
-const FIXTURES_DIR = path.resolve(__dirname, "../../../docs/samples");
+const FIXTURES_DIR = path.resolve(__dirname, "../../../public/samples");
 
 const FIXTURES = [
   "sample-crm.csv",

@@ -157,9 +157,7 @@ Key modules:
 - `src/lib/import/run-import.ts` — orchestration  
 - `src/app/api/import/*` — HTTP + SSE  
 
-Docs: [`docs/SPEC.md`](./docs/SPEC.md) (PRD extract), [`docs/PLAN.md`](./docs/PLAN.md), [`docs/DECISIONS.md`](./docs/DECISIONS.md).
-
-Samples: [`docs/samples/`](./docs/samples/) — 5 CSV fixtures for testing.
+Samples: [`public/samples/`](./public/samples/) — 5 CSV fixtures for testing.
 
 ---
 
@@ -171,3 +169,4 @@ Samples: [`docs/samples/`](./docs/samples/) — 5 CSV fixtures for testing.
 **Source enum:** `leads_on_demand` | `meridian_tower` | `eden_park` | `varah_swamy` | `sarjapur_plots`
 
 ---
+-

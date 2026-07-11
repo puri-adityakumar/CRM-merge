@@ -6,7 +6,7 @@ import path from "node:path";
  * Demo fixture CSVs for the GrowEasy CSV importer.
  * Paths are resolved from the package root (CRMerge/).
  */
-const FIXTURES_DIR = path.resolve(__dirname, "../../../docs/samples");
+const FIXTURES_DIR = path.resolve(__dirname, "../../../public/samples");
 
 const FIXTURE_FILES = [
   "sample-crm.csv",
