@@ -1,6 +1,6 @@
 "use client";
 
-import { XIcon, CheckIcon, Loader2Icon, ClockIcon } from "lucide-react";
+import { CheckIcon, Loader2Icon, ClockIcon } from "lucide-react";
 import type { BatchLogEntry } from "@/hooks/use-import";
 import { cn } from "@/lib/utils";
 import {
@@ -162,11 +162,11 @@ export function ImportProgress({
         <div className="flex justify-end">
           <Button
             type="button"
-            variant="outline"
+            variant="ghost"
             size="sm"
+            className="text-destructive hover:bg-destructive/10 hover:text-destructive"
             onClick={onCancel}
           >
-            <XIcon className="size-3.5" />
             Cancel
           </Button>
         </div>
