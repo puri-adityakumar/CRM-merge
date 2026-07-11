@@ -117,15 +117,17 @@ The UI uses the stream endpoint for confirm → results.
 
 ## Demo fixtures
 
-Under [`public/samples/`](./public/samples/):
+Five sample CSVs with deliberately different schemas — only one matches the target format.
 
-| File | Description |
-|------|-------------|
-| `sample-crm.csv` | Structured CRM rows |
-| `facebook-leads.csv` | FB-style headers + multi-phone |
-| `google-ads.csv` | Ads export shape |
-| `messy-re.csv` | Messy real-estate CRM |
-| `no-contact.csv` | Rows without email/mobile (should skip) |
+| File | Rows | Source Headers | What it tests |
+|------|------|----------------|---------------|
+| `sample-crm.csv` | 155 | 15 CRM fields (exact match) | Happy path: valid enums, ISO dates, known sources |
+| `facebook-leads.csv` | 156 | Facebook Ads export (`id`, `ad_name`, `form_name`, `platform`, etc.) | Non-standard headers, comma-split multi-phones, null emails |
+| `google-ads.csv` | 75 | Google Ads export (`Campaign`, `Ad group`, `Keyword`, `GCLID`, etc.) | Semicolon-split phones, IST timestamps, ad metadata |
+| `messy-re.csv` | 75 | Freeform broker notes (`Client Name`, `Status (internal)`, `Project Interest`) | 3 date formats, slash-split phones, internal status labels |
+| `no-contact.csv` | 20 | Contact-free rows (`name`, `city`, `project`, `notes`) | All rows should be skipped as `missing_contact` |
+
+All five are mapped by the same AI pipeline into the fixed 15-field CRM schema.
 
 Example:
 
