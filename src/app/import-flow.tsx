@@ -32,7 +32,6 @@ const SAMPLES = [
   { file: "google-ads.csv", label: "Google Ads" },
   { file: "messy-re.csv", label: "Messy Real Estate" },
   { file: "no-contact.csv", label: "No Contact" },
-  { file: "guardrails-test.csv", label: "Guardrails Test" },
 ];
 
 function stepIndex(step: FlowStep): number {
