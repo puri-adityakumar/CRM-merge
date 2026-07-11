@@ -11,23 +11,13 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/80 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <div className="flex items-center gap-2.5">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="size-6 shrink-0"
-            aria-hidden
+          <p
+            className="text-lg font-semibold -tracking-[0.03em]"
+            style={{ fontFamily: "var(--font-museo-moderno)" }}
           >
-            <path d="M7 5h5l3 3v10a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" className="fill-primary/20 stroke-primary" strokeWidth="1.25" />
-            <path d="M12 5v3h3" className="stroke-primary" strokeWidth="1.25" />
-            <path d="M9 11h4M9 14h3" className="stroke-primary" strokeWidth="1.25" strokeLinecap="round" />
-          </svg>
-          <div className="leading-tight">
-            <p className="text-sm font-semibold tracking-tight">CRMerge</p>
-            <p className="text-xs text-muted-foreground">
-              AI CSV to structured output
-            </p>
-          </div>
+            CRMerge
+          </p>
+          <span className="text-xs text-muted-foreground">AI CSV to structured output</span>
         </div>
 
         <Button

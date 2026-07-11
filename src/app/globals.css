@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: Geist, sans-serif;
+  --font-sans: Manrope, sans-serif;
   --font-mono: Geist Mono, monospace;
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -107,7 +107,7 @@
   --sidebar-border: oklch(0.9400 0.004 155);
   --sidebar-ring: oklch(0.48 0.12 155);
   --destructive-foreground: oklch(1 0 0);
-  --font-sans: Geist, sans-serif;
+  --font-sans: Manrope, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Geist Mono, monospace;
   --shadow-color: hsl(0 0% 0%);
@@ -163,7 +163,7 @@
   --sidebar-ring: oklch(0.72 0.16 155);
   --destructive-foreground: oklch(0 0 0);
   --radius: 0.5rem;
-  --font-sans: Geist, sans-serif;
+  --font-sans: Manrope, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Geist Mono, monospace;
   --shadow-color: hsl(0 0% 0%);
