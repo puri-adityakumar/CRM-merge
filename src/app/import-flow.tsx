@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import {
   AlertCircleIcon,
-  ArrowLeftIcon,
   CheckCircle2Icon,
   Loader2Icon,
   RotateCcwIcon,
@@ -242,7 +241,6 @@ export function ImportFlow() {
                 </div>
                 <div className="flex gap-2">
                   <Button type="button" variant="outline" onClick={resetAll}>
-                    <ArrowLeftIcon />
                     Choose another file
                   </Button>
                   <Button
