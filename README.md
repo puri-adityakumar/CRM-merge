@@ -2,7 +2,7 @@
 
 Upload any valid CSV (Facebook leads, Google Ads, messy real-estate exports, etc.), preview rows client-side, then confirm to transform them into clean, structured output using AI (OpenRouter).
 
-![CRMerge Screenshot](public/image.png)
+![CRMerge Screenshot](public/screen.png)
 
 ---
 
@@ -14,6 +14,8 @@ Upload any valid CSV (Facebook leads, Google Ads, messy real-estate exports, etc
 | API | Next.js Route Handlers (Node runtime) |
 | AI | OpenRouter chat completions (multi-model chain with fallback) |
 | CSV | Papa Parse (client preview + server parse) |
+
+![CRMerge Process](public/image.png)
 
 ---
 
