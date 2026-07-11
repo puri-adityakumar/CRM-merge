@@ -20,7 +20,7 @@ const museoModerno = MuseoModerno({
 });
 
 export const metadata: Metadata = {
-  title: "CRMerge — AI CSV to structured output",
+  title: "CRMerge",
   description:
     "Upload any CSV and transform it into clean, structured output with AI. No manual mapping needed.",
 };
