@@ -22,7 +22,7 @@ export default function Home() {
       <main className="flex-1">
         <ImportFlow />
       </main>
-      <footer className="flex items-center justify-center gap-2 border-t border-border py-3 text-center text-xs text-muted-foreground">
+      <footer className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 border-t border-border px-4 py-3 text-center text-xs text-muted-foreground">
         AI CSV to structured output
         <span className="text-border">|</span>
         <a

@@ -50,7 +50,7 @@ export function StatsCards({ stats }: StatsCardsProps) {
 
   return (
     <div
-      className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
+      className="grid gap-3 grid-cols-2 lg:grid-cols-4"
       data-testid="stats-cards"
     >
       {items.map((item) => {

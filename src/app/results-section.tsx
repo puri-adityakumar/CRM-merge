@@ -67,7 +67,7 @@ export function ResultsSection({ result, onImportAnother }: ResultsSectionProps)
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="flex items-center gap-2 text-lg font-semibold">
             <CheckCircle2Icon className="size-4 text-primary" />
@@ -77,7 +77,7 @@ export function ResultsSection({ result, onImportAnother }: ResultsSectionProps)
             AI-mapped records from your CSV.
           </p>
         </div>
-        <Button type="button" variant="outline" onClick={onImportAnother}>
+        <Button type="button" variant="outline" onClick={onImportAnother} className="self-start sm:self-auto">
           <RotateCcwIcon />
           Import another
         </Button>
@@ -115,7 +115,7 @@ export function ResultsSection({ result, onImportAnother }: ResultsSectionProps)
                 placeholder="Filter..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="h-8 w-36 rounded-md border border-border bg-background pl-7 pr-2 text-xs text-foreground placeholder:text-muted-foreground focus:border-ring focus:outline-none"
+                className="h-8 w-32 rounded-md border border-border bg-background pl-7 pr-2 text-base sm:text-xs text-foreground placeholder:text-muted-foreground focus:border-ring focus:outline-none"
               />
             </div>
             <select

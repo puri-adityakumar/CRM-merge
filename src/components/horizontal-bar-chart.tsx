@@ -32,7 +32,7 @@ export function HorizontalBarChart({
           const label = item.label.replace(/_/g, " ").toLowerCase();
           return (
             <div key={item.label} className="flex items-center gap-3">
-              <span className="w-32 shrink-0 truncate text-xs capitalize text-muted-foreground">
+              <span className="w-24 shrink-0 truncate text-xs capitalize text-muted-foreground sm:w-32">
                 {label}
               </span>
               <div className="flex flex-1 items-center gap-2">
