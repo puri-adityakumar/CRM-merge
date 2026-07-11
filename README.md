@@ -2,6 +2,7 @@
 
 Upload any valid CSV (Facebook leads, Google Ads, messy real-estate exports, etc.), preview rows client-side, then confirm to transform them into clean, structured output using AI (OpenRouter).
 
+![CRMerge Screenshot](public/image.png)
 
 ---
 
