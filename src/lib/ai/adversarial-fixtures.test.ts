@@ -92,11 +92,14 @@ describe("adversarial fixtures — guardrails neutralize bad data", () => {
   it("invalid crm_status / data_source values are clamped to '' (never invented)", () => {
     const statuses = pipeline("sample-crm.csv").imported.map((r) => r.crm_status);
     for (const s of statuses) {
-      expect(CRM_STATUS_VALUES).toContain(s as (typeof CRM_STATUS_VALUES)[number]);
+      // Valid values are the 4 enum members OR empty string (clamped invalid → "")
+      const valid = [...CRM_STATUS_VALUES, ""] as string[];
+      expect(valid).toContain(s);
     }
     const sources = pipeline("facebook-leads.csv").imported.map((r) => r.data_source);
     for (const s of sources) {
-      expect(DATA_SOURCE_VALUES).toContain(s as (typeof DATA_SOURCE_VALUES)[number]);
+      const valid = [...DATA_SOURCE_VALUES, ""] as string[];
+      expect(valid).toContain(s);
     }
   });
 
