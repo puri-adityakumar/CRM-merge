@@ -1,6 +1,6 @@
 "use client";
 
-import { MoonIcon, SparklesIcon, SunIcon } from "lucide-react";
+import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 
@@ -13,22 +13,20 @@ export function SiteHeader() {
         <div className="flex items-center gap-2.5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 32 32"
+            viewBox="0 0 28 28"
             fill="none"
-            className="size-8 shrink-0 rounded-lg"
+            className="size-7 shrink-0"
             aria-hidden
           >
-            <rect width="32" height="32" rx="8" className="fill-primary" />
-            <path d="M9 18.5c0-2.5 2-4.5 4.5-4.5h1.5v-1C15 10.7 16.7 9 19 9s4 1.7 4 4v.5H24.5c2.5 0 4.5 2 4.5 4.5s-2 4.5-4.5 4.5H13.5c-2.5 0-4.5-2-4.5-4.5Z" className="fill-primary-foreground" opacity="0.95" />
-            <path d="M12.5 13.5v4.5a2.5 2.5 0 0 0 2.5 2.5h7.5" className="stroke-primary-foreground" strokeWidth="1.25" strokeLinecap="round" />
-            <path d="M12.5 18.5h9" className="stroke-primary-foreground" strokeWidth="1.25" strokeLinecap="round" />
-            <circle cx="16" cy="13" r="1.25" className="fill-primary-foreground" />
-            <circle cx="18.5" cy="13" r="1.25" className="fill-primary-foreground" />
+            <rect width="28" height="28" rx="7" className="fill-primary" />
+            <path d="M9 7h5l3.5 3.5V20a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z" className="fill-primary/20 stroke-primary-foreground" strokeWidth="1" />
+            <path d="M14 7v3.5h3.5" className="stroke-primary-foreground" strokeWidth="1" />
+            <path d="M10 13h5M10 16h4" className="stroke-primary-foreground" strokeWidth="1" strokeLinecap="round" />
+            <path d="M16 4.5 17.5 6l1.5-1.5L17.5 3Z" className="fill-primary-foreground" />
           </svg>
           <div className="leading-tight">
             <p className="text-sm font-semibold tracking-tight">CRMerge</p>
             <p className="text-xs text-muted-foreground">
-              <SparklesIcon className="mr-1 inline-block size-3" />
               AI CSV to structured output
             </p>
           </div>
