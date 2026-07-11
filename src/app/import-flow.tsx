@@ -152,7 +152,7 @@ export function ImportFlow() {
                 >
                   {done ? (
                     <CheckCircle2Icon className="size-3.5" />
-                  ) : active ? (
+                  ) : active && s.id === "processing" ? (
                     <Loader2Icon className="size-3.5 animate-spin" />
                   ) : (
                     i + 1
