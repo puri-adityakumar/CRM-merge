@@ -114,7 +114,7 @@ The UI uses the stream endpoint for confirm → results.
 
 ## Demo fixtures
 
-Under [`docs/samples/`](./docs/samples/):
+Under [`public/samples/`](./public/samples/):
 
 | File | Description |
 |------|-------------|
@@ -128,7 +128,7 @@ Example:
 
 ```bash
 curl -sS -X POST http://localhost:3000/api/import \
-  -F "file=@docs/samples/sample-crm.csv;type=text/csv" | jq .
+  -F "file=@public/samples/sample-crm.csv;type=text/csv" | jq .
 ```
 
 ---
@@ -153,11 +153,21 @@ Key modules:
 
 - `src/lib/csv/parse.ts` — server CSV parse  
 - `src/lib/ai/extract.ts` — batch LLM + retries/fallback  
-- `src/lib/ai/post-process.ts` — hard business rules  
+- `src/lib/ai/post-process.ts` — hard business rules + guardrails
+- `src/lib/guardrails/detect.ts` — violation detection engine  
 - `src/lib/import/run-import.ts` — orchestration  
 - `src/app/api/import/*` — HTTP + SSE  
 
 Samples: [`public/samples/`](./public/samples/) — 5 CSV fixtures for testing.
+
+## Guardrails
+
+The `postProcess` step applies hard business rules the LLM may violate:
+
+- **Formula injection stripped** — Leading `=`, `@`, `+`, `-` prefixes on text fields are removed (e.g. `=cmd|/c calc.exe` → `cmd|/c calc.exe`). `+91` phone numbers are preserved.
+- **Invalid enums clamped** — Unknown `crm_status` / `data_source` values are forced to `""` (empty). No invented values leak through.
+- **XSS passed through** — `<script>`, `onerror=`, and similar strings are stored as-is but never executed; React auto-escapes on render.
+- **Violation detection** — Results table shows `xss`, `sql`, or `formula` badges on rows containing suspicious patterns.
 
 ---
 
@@ -168,5 +178,3 @@ Samples: [`public/samples/`](./public/samples/) — 5 CSV fixtures for testing.
 **Status enum:** `GOOD_LEAD_FOLLOW_UP` | `DID_NOT_CONNECT` | `BAD_LEAD` | `SALE_DONE`  
 **Source enum:** `leads_on_demand` | `meridian_tower` | `eden_park` | `varah_swamy` | `sarjapur_plots`
 
----
--
