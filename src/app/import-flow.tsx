@@ -124,56 +124,39 @@ export function ImportFlow() {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6">
-      <div className="space-y-2">
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-          Import CSV to CRM
-        </h1>
-        <p className="max-w-2xl text-sm text-muted-foreground sm:text-base">
-          Upload any valid CSV, preview the rows, then confirm to map fields into
-          GrowEasy CRM format with AI. No processing runs until you confirm.
-        </p>
-      </div>
+      <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        Import CSV to CRM
+      </h1>
 
-      <nav aria-label="Import steps" className="flex items-center justify-center gap-0">
+      {/* Horizontal stepper — mobile only */}
+      <nav aria-label="Import steps" className="flex items-center gap-0 sm:hidden">
         {STEPS.map((s, i) => {
           const active = s.id === step;
           const done = i < current;
           const last = i === STEPS.length - 1;
           return (
             <div key={s.id} className="flex items-center gap-0">
-              <div className="flex flex-col items-center gap-1.5">
-                <div
-                  className={cn(
-                    "flex size-7 items-center justify-center rounded-full text-xs font-bold transition-colors",
-                    active && "bg-primary text-primary-foreground ring-2 ring-ring/30",
-                    done && "bg-primary text-primary-foreground",
-                    !active && !done && "border-2 border-border bg-background text-muted-foreground",
-                  )}
-                >
-                  {done ? (
-                    <CheckCircle2Icon className="size-3.5" />
-                  ) : active && s.id === "processing" ? (
-                    <Loader2Icon className="size-3.5 animate-spin" />
-                  ) : (
-                    i + 1
-                  )}
-                </div>
-                <span
-                  className={cn(
-                    "text-[10px] font-medium",
-                    active && "text-foreground",
-                    done && "text-foreground",
-                    !active && !done && "text-muted-foreground",
-                  )}
-                >
-                  {s.label}
-                </span>
+              <div
+                className={cn(
+                  "flex size-6 items-center justify-center rounded-full text-[10px] font-bold transition-colors",
+                  active && "bg-primary text-primary-foreground",
+                  done && "bg-primary text-primary-foreground",
+                  !active && !done && "border border-border bg-background text-muted-foreground",
+                )}
+              >
+                {done ? (
+                  <CheckCircle2Icon className="size-3" />
+                ) : active && s.id === "processing" ? (
+                  <Loader2Icon className="size-3 animate-spin" />
+                ) : (
+                  i + 1
+                )}
               </div>
               {!last && (
-                <div className="mb-5 w-8 sm:w-12">
+                <div className="w-4 sm:w-6">
                   <div
                     className={cn(
-                      "h-0.5 w-full rounded",
+                      "h-px w-full",
                       i < current ? "bg-primary" : "bg-border",
                     )}
                   />
@@ -184,159 +167,216 @@ export function ImportFlow() {
         })}
       </nav>
 
-      {step === "upload" && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Upload CSV</CardTitle>
-            <CardDescription>
-              Drag and drop or pick a CSV file. Preview is client-side only — the
-              import API is not called yet.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <UploadZone
-              onFileAccepted={handleFileAccepted}
-              parsing={parsing}
-            />
-          </CardContent>
-        </Card>
-      )}
-
-      {step === "preview" && preview && file && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Preview</CardTitle>
-            <CardDescription>
-              Review parsed rows. Confirm import only when you are ready — that
-              sends the file to the server for AI extraction.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <PreviewTable preview={preview} fileName={file.name} />
-          </CardContent>
-          <CardFooter className="justify-between gap-2">
-            <Button type="button" variant="outline" onClick={resetAll}>
-              <ArrowLeftIcon />
-              Choose another file
-            </Button>
-            <Button
-              type="button"
-              onClick={handleConfirm}
-              disabled={importing || preview.rowCount === 0}
-            >
-              Confirm import
-            </Button>
-          </CardFooter>
-        </Card>
-      )}
-
-      {step === "processing" && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              {importFailed ? (
-                <>
-                  <AlertCircleIcon className="size-4 text-destructive" />
-                  Import failed
-                </>
-              ) : (
-                <>
-                  <Loader2Icon className="size-4 animate-spin" />
-                  Processing import
-                </>
-              )}
-            </CardTitle>
-            <CardDescription>
-              {importFailed
-                ? "The import request could not be completed. You can retry or choose another file."
-                : "Streaming AI extraction progress from the server. This may take a moment for larger files or free-tier models."}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {importFailed ? (
-              <div className="space-y-3">
-                {importError?.status && (
-                  <p className="text-sm">
-                    <span className="text-muted-foreground">Status:</span>{" "}
-                    <span className="font-mono tabular-nums">
-                      {importError.status}
-                    </span>
-                  </p>
-                )}
-                {importError?.code && (
-                  <p className="text-sm">
-                    <span className="text-muted-foreground">Code:</span>{" "}
-                    <span className="font-mono">{importError.code}</span>
-                  </p>
-                )}
-                <div className="flex gap-2 pt-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={resetAll}
-                  >
-                    Start over
-                  </Button>
-                  <Button
-                    type="button"
-                    onClick={handleConfirm}
-                    disabled={!file || importing}
-                  >
-                    {importing ? (
-                      <>
-                        <Loader2Icon className="animate-spin" />
-                        Retrying…
-                      </>
-                    ) : (
-                      "Retry import"
+      <div className="flex gap-6">
+        {/* Vertical stepper sidebar */}
+        <nav aria-label="Import steps" className="hidden w-32 shrink-0 flex-col sm:flex">
+          {STEPS.map((s, i) => {
+            const active = s.id === step;
+            const done = i < current;
+            const last = i === STEPS.length - 1;
+            return (
+              <div key={s.id} className="flex items-stretch gap-3">
+                <div className="flex flex-col items-center">
+                  <div
+                    className={cn(
+                      "flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors",
+                      active && "bg-primary text-primary-foreground ring-2 ring-ring/30",
+                      done && "bg-primary text-primary-foreground",
+                      !active && !done && "border-2 border-border bg-background text-muted-foreground",
                     )}
-                  </Button>
+                  >
+                    {done ? (
+                      <CheckCircle2Icon className="size-3.5" />
+                    ) : active && s.id === "processing" ? (
+                      <Loader2Icon className="size-3.5 animate-spin" />
+                    ) : (
+                      i + 1
+                    )}
+                  </div>
+                  {!last && (
+                    <div
+                      className={cn(
+                        "mt-1.5 w-0.5 flex-1 rounded",
+                        i < current ? "bg-primary" : "bg-border",
+                      )}
+                    />
+                  )}
+                </div>
+                <div className={cn("flex flex-col pb-5", last && "pb-0")}>
+                  <span
+                    className={cn(
+                      "pt-1 text-sm font-medium",
+                      active && "text-foreground",
+                      done && "text-foreground",
+                      !active && !done && "text-muted-foreground",
+                    )}
+                  >
+                    {s.label}
+                  </span>
                 </div>
               </div>
-            ) : (
-              <ImportProgress
-                fileName={file?.name}
-                percent={
-                  progress?.totalBatches
-                    ? Math.min(100, Math.round((progress.processed / progress.totalBatches) * 100))
-                    : null
-                }
-                batchLog={batchLog}
-                startedAt={startedAt}
-                estimatedMs={estimatedMs}
-                onCancel={handleCancel}
-              />
-            )}
-          </CardContent>
-        </Card>
-      )}
+            );
+          })}
+        </nav>
 
-      {step === "results" && result?.ok && (
-        <Card>
-          <CardHeader className="flex-row items-start justify-between gap-4">
-            <div className="space-y-1">
-              <CardTitle className="flex items-center gap-2">
-                <CheckCircle2Icon className="size-4 text-primary" />
-                Import complete
-              </CardTitle>
-              <CardDescription>
-                AI-mapped CRM records from your CSV.
-              </CardDescription>
-            </div>
-            <Button type="button" variant="outline" onClick={resetAll}>
-              <RotateCcwIcon />
-              Import another
-            </Button>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <StatsCards stats={result.stats} />
-            <ResultsTable
-              imported={result.imported}
-              skipped={result.skipped}
-            />
-          </CardContent>
-        </Card>
-      )}
+        {/* Content area */}
+        <div className="min-w-0 flex-1">
+          {step === "upload" && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Upload CSV</CardTitle>
+                <CardDescription>
+                  Upload any valid CSV, preview the rows, then confirm to map
+                  fields into GrowEasy CRM format with AI. No processing runs
+                  until you confirm.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <UploadZone
+                  onFileAccepted={handleFileAccepted}
+                  parsing={parsing}
+                />
+              </CardContent>
+            </Card>
+          )}
+
+          {step === "preview" && preview && file && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Preview</CardTitle>
+                <CardDescription>
+                  Review parsed rows. Confirm import only when you are ready —
+                  that sends the file to the server for AI extraction.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <PreviewTable preview={preview} fileName={file.name} />
+              </CardContent>
+              <CardFooter className="justify-between gap-2">
+                <Button type="button" variant="outline" onClick={resetAll}>
+                  <ArrowLeftIcon />
+                  Choose another file
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleConfirm}
+                  disabled={importing || preview.rowCount === 0}
+                >
+                  Confirm import
+                </Button>
+              </CardFooter>
+            </Card>
+          )}
+
+          {step === "processing" && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  {importFailed ? (
+                    <>
+                      <AlertCircleIcon className="size-4 text-destructive" />
+                      Import failed
+                    </>
+                  ) : (
+                    <>
+                      <Loader2Icon className="size-4 animate-spin" />
+                      Processing import
+                    </>
+                  )}
+                </CardTitle>
+                <CardDescription>
+                  {importFailed
+                    ? "The import request could not be completed. You can retry or choose another file."
+                    : "Streaming AI extraction progress from the server. This may take a moment for larger files."}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {importFailed ? (
+                  <div className="space-y-3">
+                    {importError?.status && (
+                      <p className="text-sm">
+                        <span className="text-muted-foreground">Status:</span>{" "}
+                        <span className="font-mono tabular-nums">
+                          {importError.status}
+                        </span>
+                      </p>
+                    )}
+                    {importError?.code && (
+                      <p className="text-sm">
+                        <span className="text-muted-foreground">Code:</span>{" "}
+                        <span className="font-mono">{importError.code}</span>
+                      </p>
+                    )}
+                    <div className="flex gap-2 pt-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={resetAll}
+                      >
+                        Start over
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={handleConfirm}
+                        disabled={!file || importing}
+                      >
+                        {importing ? (
+                          <>
+                            <Loader2Icon className="animate-spin" />
+                            Retrying…
+                          </>
+                        ) : (
+                          "Retry import"
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <ImportProgress
+                    fileName={file?.name}
+                    percent={
+                      progress?.totalBatches
+                        ? Math.min(100, Math.round((progress.processed / progress.totalBatches) * 100))
+                        : null
+                    }
+                    batchLog={batchLog}
+                    startedAt={startedAt}
+                    estimatedMs={estimatedMs}
+                    onCancel={handleCancel}
+                  />
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          {step === "results" && result?.ok && (
+            <Card>
+              <CardHeader className="flex-row items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <CardTitle className="flex items-center gap-2">
+                    <CheckCircle2Icon className="size-4 text-primary" />
+                    Import complete
+                  </CardTitle>
+                  <CardDescription>
+                    AI-mapped CRM records from your CSV.
+                  </CardDescription>
+                </div>
+                <Button type="button" variant="outline" onClick={resetAll}>
+                  <RotateCcwIcon />
+                  Import another
+                </Button>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <StatsCards stats={result.stats} />
+                <ResultsTable
+                  imported={result.imported}
+                  skipped={result.skipped}
+                />
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
