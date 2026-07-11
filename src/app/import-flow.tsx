@@ -118,34 +118,44 @@ export function ImportFlow() {
       </h1>
 
       {/* Horizontal stepper — mobile only */}
-      <nav aria-label="Import steps" className="flex items-center gap-0 sm:hidden">
+      <nav aria-label="Import steps" className="flex items-start justify-center gap-0 py-2 sm:hidden">
         {STEPS.map((s, i) => {
           const active = s.id === step;
           const done = i < current;
           const last = i === STEPS.length - 1;
           return (
-            <div key={s.id} className="flex items-center gap-0">
-              <div
-                className={cn(
-                  "flex size-6 items-center justify-center rounded-full text-[10px] font-bold transition-colors",
-                  active && "bg-primary text-primary-foreground",
-                  done && "bg-primary text-primary-foreground",
-                  !active && !done && "border border-border bg-background text-muted-foreground",
-                )}
-              >
-                {done ? (
-                  <CheckCircle2Icon className="size-3" />
-                ) : active && s.id === "processing" ? (
-                  <Loader2Icon className="size-3 animate-spin" />
-                ) : (
-                  i + 1
-                )}
+            <div key={s.id} className="flex items-start gap-0">
+              <div className="flex flex-col items-center gap-1">
+                <div
+                  className={cn(
+                    "flex size-9 items-center justify-center rounded-full text-sm font-bold transition-colors",
+                    active && "bg-primary text-primary-foreground ring-2 ring-ring/30",
+                    done && "bg-primary text-primary-foreground",
+                    !active && !done && "border-2 border-border bg-background text-muted-foreground",
+                  )}
+                >
+                  {done ? (
+                    <CheckCircle2Icon className="size-4" />
+                  ) : active && s.id === "processing" ? (
+                    <Loader2Icon className="size-4 animate-spin" />
+                  ) : (
+                    i + 1
+                  )}
+                </div>
+                <span
+                  className={cn(
+                    "text-[10px] font-medium leading-tight",
+                    active || done ? "text-foreground" : "text-muted-foreground",
+                  )}
+                >
+                  {s.label}
+                </span>
               </div>
               {!last && (
-                <div className="w-4 sm:w-6">
+                <div className="mt-5 w-6">
                   <div
                     className={cn(
-                      "h-px w-full",
+                      "h-0.5 w-full rounded",
                       i < current ? "bg-primary" : "bg-border",
                     )}
                   />
