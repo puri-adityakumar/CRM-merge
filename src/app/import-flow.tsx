@@ -22,7 +22,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ImportProgress } from "@/components/import-progress";
 import { useParseCsv } from "@/hooks/use-parse-csv";
 import { useImport } from "@/hooks/use-import";
@@ -135,18 +134,52 @@ export function ImportFlow() {
         </p>
       </div>
 
-      <nav aria-label="Import steps" className="flex flex-wrap gap-2">
+      <nav aria-label="Import steps" className="flex items-center justify-center gap-0">
         {STEPS.map((s, i) => {
           const active = s.id === step;
           const done = i < current;
+          const last = i === STEPS.length - 1;
           return (
-            <Badge
-              key={s.id}
-              variant={active ? "default" : done ? "secondary" : "outline"}
-              className={cn("px-2.5 py-1", active && "ring-2 ring-ring/30")}
-            >
-              <span className="tabular-nums opacity-70">{i + 1}.</span> {s.label}
-            </Badge>
+            <div key={s.id} className="flex items-center gap-0">
+              <div className="flex flex-col items-center gap-1.5">
+                <div
+                  className={cn(
+                    "flex size-7 items-center justify-center rounded-full text-xs font-bold transition-colors",
+                    active && "bg-primary text-primary-foreground ring-2 ring-ring/30",
+                    done && "bg-primary text-primary-foreground",
+                    !active && !done && "border-2 border-border bg-background text-muted-foreground",
+                  )}
+                >
+                  {done ? (
+                    <CheckCircle2Icon className="size-3.5" />
+                  ) : active ? (
+                    <Loader2Icon className="size-3.5 animate-spin" />
+                  ) : (
+                    i + 1
+                  )}
+                </div>
+                <span
+                  className={cn(
+                    "text-[10px] font-medium",
+                    active && "text-foreground",
+                    done && "text-foreground",
+                    !active && !done && "text-muted-foreground",
+                  )}
+                >
+                  {s.label}
+                </span>
+              </div>
+              {!last && (
+                <div className="mb-5 w-8 sm:w-12">
+                  <div
+                    className={cn(
+                      "h-0.5 w-full rounded",
+                      i < current ? "bg-primary" : "bg-border",
+                    )}
+                  />
+                </div>
+              )}
+            </div>
           );
         })}
       </nav>

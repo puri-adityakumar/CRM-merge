@@ -15,7 +15,7 @@ import {
 } from "./post-process";
 import type { CrmRecord as SchemaCrmRecord } from "@/lib/schema/crm";
 
-const FIXTURES_DIR = path.resolve(__dirname, "../../../fixtures");
+const FIXTURES_DIR = path.resolve(__dirname, "../../../docs/samples");
 
 const FIXTURE_FILES = [
   "sample-crm.csv",
