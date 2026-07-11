@@ -5,6 +5,42 @@ import {
 } from "@/lib/schema/crm";
 
 /**
+ * Strip CSV formula injection prefixes from a value.
+ * Excel/Docs execute cells starting with =, +, -, or @ as formulas.
+ * We strip the prefix so the value becomes inert text.
+ */
+function stripFormulaPrefix(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return trimmed;
+  // Formula injection prefixes
+  if (/^[=+\-@]/.test(trimmed)) {
+    // Strip leading '=' (and whitespace) — the most dangerous one
+    if (trimmed.startsWith("=")) return trimmed.slice(1).trim();
+    // Strip '@' prefix (e.g. @SUM)
+    if (trimmed.startsWith("@") && /^@\w/.test(trimmed)) return trimmed.slice(1).trim();
+    // Strip '+' prefix only if followed by a letter (not a phone number)
+    if (trimmed.startsWith("+") && /^\+[A-Za-z]/.test(trimmed)) return trimmed.slice(1).trim();
+    // Strip '-' prefix only if followed by a letter
+    if (trimmed.startsWith("-") && /^\-[A-Za-z]/.test(trimmed)) return trimmed.slice(1).trim();
+  }
+  return trimmed;
+}
+
+/** Fields that should have formula injection stripped. */
+const STRIP_FIELDS: readonly (keyof CrmRecord)[] = [
+  "name",
+  "email",
+  "mobile_without_country_code",
+  "company",
+  "city",
+  "state",
+  "country",
+  "lead_owner",
+  "crm_note",
+  "description",
+] as const;
+
+/**
  * A record that was rejected by post-processing (e.g. it had no contact info),
  * kept for display to the user so they can see what got dropped and why.
  */
@@ -282,6 +318,13 @@ export function postProcess(records: CrmRecord[]): PostProcessResult {
       possession_time: trimField(record.possession_time),
       description: trimField(record.description),
     };
+
+    // 1a. Strip formula injection prefixes from user-facing text fields.
+    for (const field of STRIP_FIELDS) {
+      (trimmed as Record<string, string>)[field] = stripFormulaPrefix(
+        (trimmed as Record<string, string>)[field],
+      );
+    }
 
     // 2. Skip rule: must have at least one way to contact the lead.
     if (trimmed.email === "" && trimmed.mobile_without_country_code === "") {
